@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { getLibraries } from "../services/api";
+import { getLibraries, deleteLibrary } from "../services/api";
 import { EmptyState } from "../components/UI/EmptyState";
 
 function HomePage() {
@@ -16,11 +16,7 @@ function HomePage() {
         if (!confirmDelete) return;
 
         try {
-            await axios.delete(`http://localhost:5000/api/libraries/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}` 
-                }
-            });
+            await deleteLibrary(id);
 
             // remove from UI instantly
             setLibraries((prev) => prev.filter((lib) => lib._id !== id));

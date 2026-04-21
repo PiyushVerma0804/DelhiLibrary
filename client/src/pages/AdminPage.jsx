@@ -86,12 +86,7 @@ function CreateLibraryForm() {
       formData.append("description", form.description.trim());
       formData.append("introContent", form.introContent.trim());
 
-      const token = localStorage.getItem("token");
-      await axios.post("http://localhost:5000/api/libraries", formData, {
-        headers: {
-          Authorization: `Bearer ${token}` 
-        }
-      });
+      await createLibrary(formData);
       setStatus({ type: "success", message: `Library "${form.name.trim()}" created successfully.` });
       setForm(EMPTY_LIBRARY_FORM);
       setFile(null);
