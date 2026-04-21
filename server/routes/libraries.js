@@ -1,8 +1,9 @@
 import express from 'express';
 import { body } from 'express-validator';
-import { createLibrary, getAllLibraries, getLibraryById } from '../controllers/libraryController.js';
+import { createLibrary, getAllLibraries, getLibraryById, deleteLibrary } from '../controllers/libraryController.js';
 import { protect, adminOnly } from '../middleware/auth.js';
 import { handleValidationErrors } from '../middleware/validation.js';
+import { upload } from '../middleware/upload.js';
 
 const router = express.Router();
 
@@ -22,19 +23,15 @@ const createLibraryValidation = [
     .withMessage('Description cannot exceed 1000 characters'),
   
   body('introContent')
-    .trim()
-    .notEmpty()
-    .withMessage('Intro content is required'),
-  
-  body('imageUrl')
     .optional()
     .trim()
-    .isURL()
-    .withMessage('Please provide a valid URL for image')
+    .isLength({ max: 2000 })
+    .withMessage('Intro content cannot exceed 2000 characters')
 ];
 
-router.post('/', protect, adminOnly, createLibraryValidation, handleValidationErrors, createLibrary);
+router.post("/", protect, adminOnly, upload.single("image"), createLibrary);
 router.get('/', getAllLibraries);
 router.get('/:id', getLibraryById);
+router.delete('/:id', protect, adminOnly, deleteLibrary);
 
 export default router;

@@ -13,12 +13,34 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
+// Simple error logging
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('API Error:', error.response?.data?.message || error.message);
+    return Promise.reject(error);
+  }
+);
+
 // Libraries
 export const getLibraries = () => API.get("/libraries");
 export const getLibraryById = (id) => API.get(`/libraries/${id}`);
+export const createLibrary = (data) => {
+  // Check if data is FormData (file upload) or regular JSON
+  if (data instanceof FormData) {
+    return API.post("/libraries", data, {
+      headers: { "Content-Type": "multipart/form-data" }
+    });
+  }
+  return API.post("/libraries", data);
+};
+export const deleteLibrary = (id) => API.delete(`/libraries/${id}`);
 
 // Documents
-export const getDocuments = (libraryId) => API.get("/documents", { params: { libraryId } });
+export const getDocuments = (queryParams = "") => {
+  const url = queryParams ? `/documents?${queryParams}` : "/documents";
+  return API.get(url);
+};
 
 // Auth
 export const login = (data) => API.post("/auth/login", data);

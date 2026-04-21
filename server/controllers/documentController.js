@@ -3,7 +3,7 @@ import Library from '../models/Library.js';
 
 const getAllDocuments = async (req, res) => {
   try {
-    const { libraryId, type, tags } = req.query;
+    const { libraryId, type, tags, search } = req.query;
     
     const query = {};
     
@@ -20,8 +20,13 @@ const getAllDocuments = async (req, res) => {
       query.tags = { $in: tagArray };
     }
 
+    if (search) {
+      query.title = { $regex: search, $options: 'i' };
+    }
+
     const documents = await Document.find(query)
-      .populate('libraryId', 'name description')
+      .select('title description type year source language tags fileUrl libraryId contributorId createdAt')
+      .populate('libraryId', 'name')
       .populate('contributorId', 'name')
       .sort({ createdAt: -1 });
 

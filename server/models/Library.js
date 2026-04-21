@@ -19,7 +19,7 @@ const librarySchema = new mongoose.Schema({
   },
   introContent: {
     type: String,
-    required: [true, 'Intro content is required'],
+    required: false,
     trim: true
   }
 }, {

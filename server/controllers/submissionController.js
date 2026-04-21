@@ -4,25 +4,54 @@ import { uploadToImageKit } from '../utils/upload.js';
 
 const createSubmission = async (req, res) => {
   try {
-    if (!req.file) {
+    const {
+      title,
+      description,
+      libraryId,
+      type,
+      source,
+      year,
+      language,
+      tags
+    } = req.body;
+
+    const file = req.file;
+
+    // REQUIRED CHECKS
+    if (!file) {
       return res.status(400).json({
         success: false,
-        message: 'File is required'
+        message: "File is required"
       });
     }
 
-    const { title, description, libraryId, type, source, year, language, tags } = req.body;
+    if (!title || !description || !libraryId || !type || !source) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing required fields"
+      });
+    }
 
+    // CHECK LIBRARY EXISTS
     const library = await Library.findById(libraryId);
     if (!library) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
-        message: 'Library not found'
+        message: "Library not found"
       });
     }
 
-    const fileUrl = await uploadToImageKit(req.file);
+    // UPLOAD FILE
+    const uploaded = await uploadToImageKit(file);
 
+    if (!uploaded || !uploaded.url) {
+      return res.status(500).json({
+        success: false,
+        message: "File upload failed"
+      });
+    }
+
+    // CREATE SUBMISSION
     const submission = await Submission.create({
       title,
       description,
@@ -31,22 +60,22 @@ const createSubmission = async (req, res) => {
       source,
       year,
       language,
-      tags,
-      fileUrl,
+      tags: tags ? (Array.isArray(tags) ? tags : tags.split(",")) : [],
+      fileUrl: uploaded.url,
       contributorId: req.user._id,
-      status: 'pending'
+      status: "pending"
     });
 
     res.status(201).json({
       success: true,
-      message: 'Submission created successfully',
-      data: { submission }
+      data: submission
     });
+
   } catch (error) {
+    console.error("SUBMISSION ERROR:", error);
     res.status(500).json({
       success: false,
-      message: 'Server error creating submission',
-      error: error.message
+      message: "Server error creating submission"
     });
   }
 };

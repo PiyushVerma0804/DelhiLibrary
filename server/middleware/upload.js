@@ -18,7 +18,7 @@ const upload = multer({
     fileSize: 5 * 1024 * 1024, // 5MB
   },
   fileFilter,
-  single: 'file'
 });
 
-export default upload.single('file');
+export default upload;
+export { upload };

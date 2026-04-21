@@ -17,8 +17,10 @@ function LoginPage() {
     setError(null);
     try {
       const res = await login(form);
-      localStorage.setItem("token", res.data.data.token);
-      navigate("/");
+      const { token, user } = res.data.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", user.role);
+      navigate("/home");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed. Please try again.");
     } finally {
@@ -30,9 +32,7 @@ function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
       <div className="w-full max-w-sm">
         <h1 className="text-2xl font-bold mb-1">Sign In</h1>
-        <p className="text-gray-500 text-sm mb-6">
-          Access your contributor account.
-        </p>
+        <p className="text-gray-500 text-sm mb-6">Access your contributor account.</p>
 
         {error && (
           <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded">
@@ -43,33 +43,18 @@ function LoginPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1">Email</label>
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={handleChange}
-              required
+            <input name="email" type="email" value={form.email} onChange={handleChange} required
               className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
-              placeholder="you@example.com"
-            />
+              placeholder="your-email@domain.com" />
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Password</label>
-            <input
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={handleChange}
-              required
+            <input name="password" type="password" value={form.password} onChange={handleChange} required
               className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
-              placeholder="••••••••"
-            />
+              placeholder="••••••••" />
           </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gray-800 text-white py-2 rounded text-sm hover:bg-gray-700 disabled:opacity-50"
-          >
+          <button type="submit" disabled={loading}
+            className="w-full bg-gray-800 text-white py-2 rounded text-sm hover:bg-gray-700 disabled:opacity-50">
             {loading ? "Signing in…" : "Sign In"}
           </button>
         </form>

@@ -37,6 +37,25 @@ app.get('/', (req, res) => {
   res.json({ message: 'API running' });
 });
 
+// 404 handler for invalid routes
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Route not found'
+  });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Internal server error',
+    ...(process.env.NODE_ENV === 'development' && { error: err.stack })
+  });
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

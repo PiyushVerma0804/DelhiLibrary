@@ -8,7 +8,9 @@ export const uploadToImageKit = async (file) => {
       folder: 'digital-archive'
     });
 
-    return result.url;
+    return {
+      url: result.url
+    };
   } catch (error) {
     throw new Error('Failed to upload file to ImageKit: ' + error.message);
   }

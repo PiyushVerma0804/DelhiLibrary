@@ -1,93 +1,40 @@
 # Archive of Archives
 
-A digital archive platform for preserving and exploring historical photographs, documents, and field notes from Delhi's libraries.
+A Digital Humanities platform to document libraries through photographs, documents, and field notes.
+
+## Features
+
+- Library-based archive system
+- Submission + admin approval workflow
+- Image & document upload
+- Metadata-driven entries
 
 ## Tech Stack
 
-- **Frontend**: React + Vite + Tailwind CSS
-- **Backend**: Node.js + Express + MongoDB (Mongoose)
-- **Auth**: JWT (Bearer tokens)
-- **File Storage**: ImageKit
-
-## Project Structure
-
-```
-/
-├── server/          # Express API
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── utils/
-│   └── server.js
-├── client/          # React frontend
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   └── layouts/
-│   └── index.html
-├── .env.example
-└── README.md
-```
+- Frontend: React (Vite)
+- Backend: Node.js, Express
+- Database: MongoDB
+- Storage: ImageKit
 
 ## Setup
 
-### 1. Clone the repository
+### Backend
 
-```bash
-git clone <your-repo-url>
-cd <repo-name>
-```
+cd server  
+npm install  
+npm run dev  
 
-### 2. Configure environment variables
+### Frontend
 
-```bash
-cp .env.example server/.env
-# Fill in the values in server/.env
-```
+cd client  
+npm install  
+npm run dev  
 
-### 3. Install dependencies
+## Environment Variables
 
-```bash
-# Server
-cd server && npm install
+Create a `.env` file based on `.env.example` 
 
-# Client
-cd ../client && npm install
-```
+## Notes
 
-## Running Locally
-
-### Start the backend
-
-```bash
-cd server
-npm run dev
-# Runs on http://localhost:5000
-```
-
-### Start the frontend
-
-```bash
-cd client
-npm run dev
-# Runs on http://localhost:5173
-```
-
-## Routes
-
-| Path | Description |
-|---|---|
-| `/landing` | Landing page |
-| `/` | Library listing |
-| `/library/:id` | Library detail + documents |
-| `/upload` | Submit a document (login required) |
-| `/admin` | Admin review panel (admin login required) |
-| `/login` | Sign in |
-
-## API Base URL
-
-```
-http://localhost:5000/api
-```
+- Admin access is required for approving submissions
+- All uploads are handled via ImageKit

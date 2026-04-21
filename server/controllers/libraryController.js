@@ -1,26 +1,42 @@
 import Library from '../models/Library.js';
+import { uploadToImageKit } from '../utils/upload.js';
 
 const createLibrary = async (req, res) => {
   try {
-    const { name, description, imageUrl, introContent } = req.body;
+    const { name, description, introContent } = req.body;
+
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: "Image file is required"
+      });
+    }
+
+    const uploaded = await uploadToImageKit(req.file);
+
+    if (!uploaded || !uploaded.url) {
+      return res.status(500).json({
+        success: false,
+        message: "Image upload failed"
+      });
+    }
 
     const library = await Library.create({
       name,
       description,
-      imageUrl,
-      introContent
+      introContent,
+      imageUrl: uploaded.url
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
-      message: 'Library created successfully',
-      data: { library }
+      data: library
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("Create library error:", error);
+    return res.status(500).json({
       success: false,
-      message: 'Server error creating library',
-      error: error.message
+      message: error.message || "Server error creating library"
     });
   }
 };
@@ -66,6 +82,26 @@ const getLibraryById = async (req, res) => {
       error: error.message
     });
   }
+};
+
+export const deleteLibrary = async (req, res) => {
+  const { id } = req.params;
+
+  const library = await Library.findById(id);
+
+  if (!library) {
+    return res.status(404).json({
+      success: false,
+      message: "Library not found"
+    });
+  }
+
+  await library.deleteOne();
+
+  return res.json({
+    success: true,
+    message: "Library deleted successfully"
+  });
 };
 
 export {

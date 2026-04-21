@@ -56,7 +56,7 @@ const createSubmissionValidation = [
     .withMessage('Tags must be an array')
 ];
 
-router.post('/', protect, upload, createSubmissionValidation, handleValidationErrors, createSubmission);
+router.post('/', protect, upload.single("file"), createSubmission);
 router.get('/my', protect, getMySubmissions);
 
 export default router;

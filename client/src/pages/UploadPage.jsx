@@ -43,6 +43,7 @@ function Section({ title, children }) {
 
 function UploadPage() {
   const [libraries, setLibraries] = useState([]);
+  const [librariesError, setLibrariesError] = useState(false);
   const [form, setForm] = useState(EMPTY_FORM);
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
@@ -50,12 +51,11 @@ function UploadPage() {
   const [submitting, setSubmitting] = useState(false);
   const fileRef = useRef();
 
-  const isLoggedIn = !!localStorage.getItem("token");
 
   useEffect(() => {
     getLibraries()
       .then((res) => setLibraries(res.data.data.libraries))
-      .catch(() => {});
+      .catch(() => setLibrariesError(true));
   }, []);
 
   const handleChange = (e) => {
@@ -64,16 +64,43 @@ function UploadPage() {
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: null }));
   };
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0] || null;
+    setFile(selectedFile);
+    if (errors.file) setErrors((prev) => ({ ...prev, file: null }));
+  };
+
+  const isFormValid = () => {
+    const errs = validate();
+    return Object.keys(errs).length === 0;
+  };
+
   const validate = () => {
     const errs = {};
+    
+    // Required fields validation
     if (!form.title.trim()) errs.title = "Title is required.";
     if (!form.description.trim()) errs.description = "Description is required.";
     if (!form.libraryId) errs.libraryId = "Please select a library.";
+    if (!form.type) errs.type = "Document type is required.";
     if (!form.source.trim()) errs.source = "Source is required.";
     if (!file) errs.file = "Please select a file to upload.";
+    
+    // File type validation
+    if (file && form.type) {
+      if (form.type === "photo" && !file.type.startsWith("image/")) {
+        errs.file = "Please upload an image file for Photograph";
+      }
+      if (form.type === "document" && file.type !== "application/pdf") {
+        errs.file = "Please upload a PDF for Document";
+      }
+    }
+    
+    // Year validation
     if (form.year && (isNaN(form.year) || form.year < 1000 || form.year > new Date().getFullYear())) {
       errs.year = `Year must be between 1000 and ${new Date().getFullYear()}.`;
     }
+    
     return errs;
   };
 
@@ -96,14 +123,12 @@ function UploadPage() {
     formData.append("source", form.source.trim());
     if (form.year) formData.append("year", form.year);
     if (form.language) formData.append("language", form.language.trim());
-    form.tags.split(",").map((t) => t.trim()).filter(Boolean).forEach((t) => {
-      formData.append("tags[]", t);
-    });
+    if (form.tags) formData.append("tags", form.tags);
     formData.append("file", file);
 
     try {
       await createSubmission(formData);
-      setStatus({ type: "success", message: "Your submission has been received and is pending review. Thank you for contributing to the archive." });
+      setStatus({ type: "success", message: "Your entry has been submitted and is awaiting admin approval" });
       setForm(EMPTY_FORM);
       setFile(null);
       setErrors({});
@@ -125,13 +150,6 @@ function UploadPage() {
           All submissions are reviewed by an administrator before publishing.
         </p>
       </div>
-
-      {!isLoggedIn && (
-        <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded text-sm text-amber-800">
-          You must be logged in to submit documents.{" "}
-          <a href="/login" className="font-medium underline">Sign in here →</a>
-        </div>
-      )}
 
       {status && (
         <div className={`mb-6 p-4 rounded text-sm border leading-relaxed ${
@@ -190,12 +208,19 @@ function UploadPage() {
               name="libraryId"
               value={form.libraryId}
               onChange={handleChange}
+              disabled={librariesError}
               className={`w-full border rounded px-3 py-2 text-sm bg-white ${errors.libraryId ? "border-red-400" : "border-gray-300"}`}
             >
-              <option value="">— Select a library —</option>
-              {libraries.map((lib) => (
-                <option key={lib._id} value={lib._id}>{lib.name}</option>
-              ))}
+              {librariesError ? (
+                <option value="">Failed to load libraries — please refresh the page</option>
+              ) : (
+                <>
+                  <option value="">— Select a library —</option>
+                  {libraries.map((lib) => (
+                    <option key={lib._id} value={lib._id}>{lib.name}</option>
+                  ))}
+                </>
+              )}
             </select>
             {errors.libraryId && <p className="text-xs text-red-500 mt-1">{errors.libraryId}</p>}
           </Field>
@@ -203,18 +228,19 @@ function UploadPage() {
           <Field
             label="Document Type"
             required
-            hint="Photograph: image files. Document: PDFs, scanned text. Field Note: researcher observations."
+            hint="Photograph: image files (JPG, PNG). Document: PDF only. Field Note: any file type."
           >
             <select
               name="type"
               value={form.type}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-white"
+              className={`w-full border rounded px-3 py-2 text-sm bg-white ${errors.type ? "border-red-400" : "border-gray-300"}`}
             >
               {TYPES.map((t) => (
                 <option key={t.value} value={t.value}>{t.label}</option>
               ))}
             </select>
+            {errors.type && <p className="text-xs text-red-500 mt-1">{errors.type}</p>}
           </Field>
         </Section>
 
@@ -286,15 +312,14 @@ function UploadPage() {
           <Field
             label="File"
             required
-            hint="Upload the original file — image (JPG, PNG) or document (PDF). Max size depends on server configuration."
+            hint={form.type === "photo" ? "Upload an image file (JPG, PNG, GIF, etc.) for Photograph" : 
+                  form.type === "document" ? "Upload a PDF file for Document" : 
+                  "Upload any file type for Field Note"}
           >
             <input
               ref={fileRef}
               type="file"
-              onChange={(e) => {
-                setFile(e.target.files[0] || null);
-                if (errors.file) setErrors((prev) => ({ ...prev, file: null }));
-              }}
+              onChange={handleFileChange}
               className="w-full text-sm text-gray-600"
             />
             {file && (
@@ -306,10 +331,10 @@ function UploadPage() {
 
         <button
           type="submit"
-          disabled={submitting || !isLoggedIn}
+          disabled={submitting || !isFormValid()}
           className="w-full bg-gray-800 text-white py-2.5 rounded text-sm font-medium hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          {submitting ? "Submitting for review…" : "Submit Document"}
+          {submitting ? "Processing..." : "Submit Entry"}
         </button>
 
         <p className="text-xs text-gray-400 text-center mt-3">
