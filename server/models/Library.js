@@ -1,0 +1,29 @@
+import mongoose from 'mongoose';
+
+const librarySchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Library name is required'],
+    trim: true,
+    maxlength: [200, 'Library name cannot exceed 200 characters']
+  },
+  description: {
+    type: String,
+    required: [true, 'Description is required'],
+    trim: true,
+    maxlength: [1000, 'Description cannot exceed 1000 characters']
+  },
+  imageUrl: {
+    type: String,
+    trim: true
+  },
+  introContent: {
+    type: String,
+    required: [true, 'Intro content is required'],
+    trim: true
+  }
+}, {
+  timestamps: true
+});
+
+export default mongoose.model('Library', librarySchema);
