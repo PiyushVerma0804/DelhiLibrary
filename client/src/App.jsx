@@ -6,11 +6,12 @@ import DocumentsPage from "./pages/DocumentsPage";
 import UploadPage from "./pages/UploadPage";
 import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 
 // Pages that should NOT show the navbar
-const NO_NAV_ROUTES = ["/landing", "/login"];
+const NO_NAV_ROUTES = ["/landing", "/login", "/register"];
 
 function Nav() {
   const navigate = useNavigate();
@@ -71,6 +72,7 @@ function App() {
         {/* Public routes */}
         <Route path="/landing" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
         {/* Protected routes */}
         <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />

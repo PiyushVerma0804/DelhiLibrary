@@ -62,6 +62,13 @@ function LoginPage() {
         <p className="text-xs text-gray-400 text-center mt-4">
           <Link to="/landing" className="underline">← Back to homepage</Link>
         </p>
+        
+        <p className="text-sm mt-3">
+          Don't have an account?{' '}
+          <a href="/register" className="text-slate-600 hover:text-slate-800 underline">
+            Register
+          </a>
+        </p>
       </div>
     </div>
   );
