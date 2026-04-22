@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { submissionService } from '../services/submissionService.js';
+import { libraryService } from '../services/libraryService.js';
 
 function UploadPage() {
   const { libraryId } = useParams();
+  const [libraryName, setLibraryName] = useState('');
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -16,6 +18,18 @@ function UploadPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (libraryId) {
+      libraryService.getLibraryById(libraryId)
+        .then((res) => {
+          const raw = res.data;
+          const libraryData = raw?.library || raw?.data?.library || raw;
+          setLibraryName(libraryData?.name || 'Unknown Library');
+        })
+        .catch(() => setLibraryName('Unknown Library'));
+    }
+  }, [libraryId]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -70,9 +84,9 @@ function UploadPage() {
       <div className="max-w-2xl mx-auto px-4">
         <h1 className="text-2xl font-semibold mb-6">Submit Document</h1>
         <p className="text-gray-600 mb-4">Submit your document to the digital archive</p>
-        {libraryId && (
+        {libraryName && (
           <p className="text-sm text-gray-600 mb-6">
-            Submitting to Library ID: {libraryId}
+            Submitting to: {libraryName}
           </p>
         )}
 
