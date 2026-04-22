@@ -84,13 +84,19 @@ function CreateLibraryForm() {
     setStatus(null);
     try {
       const formData = new FormData();
-      formData.append("imageUrl", file);
       formData.append("name", form.name.trim());
       formData.append("description", form.description.trim());
       formData.append("location", form.location.trim());
       formData.append("openingTime", form.openingTime.trim());
       formData.append("closingTime", form.closingTime.trim());
       formData.append("introContent", form.introContent.trim());
+      formData.append("image", file);
+
+      // Debug logging
+      console.log("FORM DATA KEYS:");
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
 
       await libraryService.createLibrary(formData);
       setStatus({ type: "success", message: `Library "${form.name.trim()}" created successfully.` });
