@@ -130,15 +130,9 @@ function LibraryDetailsUI({ data, loading, error, onRetry }) {
               {/* Submit Button */}
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition p-4">
                 <button
-                  onClick={() => {
-                    console.log("BUTTON RENDERED");
-                    if (!data?._id) {
-                      console.error("Library ID missing");
-                      return;
-                    }
-                    navigate(`/submit/${data._id}`);
-                  }}
-                  className="w-full bg-primary-600 text-white py-3 rounded-full flex items-center justify-center font-medium"
+                  onClick={() => navigate(`/submit/${data._id}`)}
+                  className="w-full bg-primary-600 text-white py-3 rounded-xl font-medium hover:bg-primary-700 transition"
+                  style={{ color: "white" }}
                 >
                   Submit Document
                 </button>
