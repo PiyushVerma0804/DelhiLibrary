@@ -486,6 +486,8 @@ function AdminPage() {
     adminService.getAllSubmissions()
       .then((res) => {
         const raw = res.data;
+        const submissionsData = raw?.submissions || raw?.data?.submissions || raw || [];
+        setSubmissions(submissionsData);
       })
       .catch(() => {
         setError("Something went wrong. Please try again.");
