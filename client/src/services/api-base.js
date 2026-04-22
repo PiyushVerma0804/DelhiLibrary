@@ -10,8 +10,6 @@ API.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-  // Log final API URL to verify no duplication
-  console.log("FINAL API URL:", config.baseURL + config.url);
   return config;
 });
 
