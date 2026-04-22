@@ -14,14 +14,31 @@ const createLibraryValidation = [
     .withMessage('Library name is required')
     .isLength({ max: 200 })
     .withMessage('Library name cannot exceed 200 characters'),
-  
+
   body('description')
     .trim()
     .notEmpty()
     .withMessage('Description is required')
     .isLength({ max: 1000 })
     .withMessage('Description cannot exceed 1000 characters'),
-  
+
+  body('location')
+    .trim()
+    .notEmpty()
+    .withMessage('Location is required')
+    .isLength({ max: 200 })
+    .withMessage('Location cannot exceed 200 characters'),
+
+  body('openingTime')
+    .trim()
+    .notEmpty()
+    .withMessage('Opening time is required'),
+
+  body('closingTime')
+    .trim()
+    .notEmpty()
+    .withMessage('Closing time is required'),
+
   body('introContent')
     .optional()
     .trim()
