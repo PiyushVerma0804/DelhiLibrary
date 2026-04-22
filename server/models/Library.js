@@ -19,6 +19,16 @@ const librarySchema = new mongoose.Schema({
     trim: true,
     maxlength: [200, 'Location cannot exceed 200 characters']
   },
+  openingTime: {
+    type: String,
+    required: [true, 'Opening time is required'],
+    trim: true
+  },
+  closingTime: {
+    type: String,
+    required: [true, 'Closing time is required'],
+    trim: true
+  },
   imageUrl: {
     type: String,
     trim: true

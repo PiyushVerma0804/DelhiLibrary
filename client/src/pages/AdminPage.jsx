@@ -35,7 +35,7 @@ function MetaRow({ label, value }) {
 
 // ─── Create Library Form ─────────────────────────────────────────────────────
 
-const EMPTY_LIBRARY_FORM = { name: "", description: "", location: "", introContent: "" };
+const EMPTY_LIBRARY_FORM = { name: "", description: "", location: "", openingTime: "", closingTime: "", introContent: "" };
 
 function CreateLibraryForm() {
   const [open, setOpen] = useState(false);
@@ -69,6 +69,8 @@ function CreateLibraryForm() {
     if (!form.name.trim()) errs.name = "Name is required.";
     if (!form.description.trim()) errs.description = "Description is required.";
     if (!form.location.trim()) errs.location = "Location is required.";
+    if (!form.openingTime.trim()) errs.openingTime = "Opening time is required.";
+    if (!form.closingTime.trim()) errs.closingTime = "Closing time is required.";
     if (!file) errs.image = "Image is required.";
     return errs;
   };
@@ -86,6 +88,8 @@ function CreateLibraryForm() {
       formData.append("name", form.name.trim());
       formData.append("description", form.description.trim());
       formData.append("location", form.location.trim());
+      formData.append("openingTime", form.openingTime.trim());
+      formData.append("closingTime", form.closingTime.trim());
       formData.append("introContent", form.introContent.trim());
 
       await libraryService.createLibrary(formData);
@@ -183,6 +187,40 @@ function CreateLibraryForm() {
               }`}
             />
             {errors.location && <p className="text-xs text-red-500 mt-1">{errors.location}</p>}
+          </div>
+
+          {/* Opening Time */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Opening Time <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="time"
+              name="openingTime"
+              value={form.openingTime}
+              onChange={handleChange}
+              className={`w-full border rounded px-3 py-2 text-sm ${
+                errors.openingTime ? "border-red-400" : "border-gray-300"
+              }`}
+            />
+            {errors.openingTime && <p className="text-xs text-red-500 mt-1">{errors.openingTime}</p>}
+          </div>
+
+          {/* Closing Time */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Closing Time <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="time"
+              name="closingTime"
+              value={form.closingTime}
+              onChange={handleChange}
+              className={`w-full border rounded px-3 py-2 text-sm ${
+                errors.closingTime ? "border-red-400" : "border-gray-300"
+              }`}
+            />
+            {errors.closingTime && <p className="text-xs text-red-500 mt-1">{errors.closingTime}</p>}
           </div>
 
           {/* Image Upload */}
