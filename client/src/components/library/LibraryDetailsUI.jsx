@@ -131,10 +131,9 @@ function LibraryDetailsUI({ data, loading, error, onRetry }) {
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition p-4">
                 <button
                   onClick={() => navigate(`/submit/${data._id}`)}
-                  className="w-full bg-primary-600 text-white py-3 rounded-xl font-medium hover:bg-primary-700 transition"
-                  style={{ color: "white" }}
+                  className="w-full bg-blue-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-blue-700 transition"
                 >
-                  Submit Document
+                  <span className="text-white">Submit Document</span>
                 </button>
               </div>
 
