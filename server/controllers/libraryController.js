@@ -3,7 +3,7 @@ import { uploadToImageKit } from '../utils/upload.js';
 
 const createLibrary = async (req, res) => {
   try {
-    const { name, description, introContent } = req.body;
+    const { name, description, location, openingTime, closingTime, introContent } = req.body;
 
     if (!req.file) {
       return res.status(400).json({
@@ -24,6 +24,9 @@ const createLibrary = async (req, res) => {
     const library = await Library.create({
       name,
       description,
+      location,
+      openingTime,
+      closingTime,
       introContent,
       imageUrl: uploaded.url
     });
