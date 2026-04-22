@@ -13,6 +13,12 @@ const librarySchema = new mongoose.Schema({
     trim: true,
     maxlength: [1000, 'Description cannot exceed 1000 characters']
   },
+  location: {
+    type: String,
+    required: [true, 'Location is required'],
+    trim: true,
+    maxlength: [200, 'Location cannot exceed 200 characters']
+  },
   imageUrl: {
     type: String,
     trim: true

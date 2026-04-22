@@ -66,7 +66,7 @@ function CreateLibraryForm() {
 
   const validate = () => {
     const errs = {};
-    if (!form.name.trim()) errs.name = "Library name is required.";
+    if (!form.name.trim()) errs.name = "Name is required.";
     if (!form.description.trim()) errs.description = "Description is required.";
     if (!form.location.trim()) errs.location = "Location is required.";
     if (!file) errs.image = "Image is required.";
