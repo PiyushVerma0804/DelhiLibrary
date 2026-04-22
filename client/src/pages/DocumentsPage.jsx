@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import { getDocuments, getLibraries } from "../services/api";
+import { documentService } from "../services/documentService.js";
+import { libraryService } from "../services/libraryService.js";
 import { getTypeLabel, normalizeTags, TYPE_LABELS } from "../utils/dataHelpers";
 import { useDebounce } from "../hooks/useDebounce";
 
@@ -55,17 +56,17 @@ function DocumentsPage() {
     if (filters.type) queryParams.append("type", filters.type);
     if (filters.libraryId) queryParams.append("libraryId", filters.libraryId);
     
-    getDocuments(queryParams.toString())
+    documentService.getDocuments(queryParams.toString())
       .then((res) => {
-        setDocuments(res.data.data.documents);
+        setDocuments(res.documents || []);
       })
       .catch(() => setError("Failed to load documents. Please try again."))
       .finally(() => setLoading(false));
   }, [debouncedSearch, filters.type, filters.libraryId]);
 
   const fetchLibraries = useCallback(() => {
-    getLibraries()
-      .then((res) => setLibraries(res.data.data.libraries))
+    libraryService.getAllLibraries()
+      .then((res) => setLibraries(res.libraries || []))
       .catch(() => console.error("Failed to load libraries"));
   }, []);
 
@@ -113,17 +114,12 @@ function DocumentsPage() {
   const hasActiveFilters = filters.search || filters.type || filters.libraryId;
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      {/* Page header */}
-      <div className="mb-6 pb-4 border-b border-gray-200">
-        <h1 className="text-2xl font-bold text-gray-900 mb-1">Documents</h1>
-        <p className="text-gray-500 text-sm">
-          Browse and search through all archived documents.
-        </p>
-      </div>
+    <section className="py-12">
+      <div className="max-w-6xl mx-auto px-4">
+        <h1 className="text-2xl font-semibold mb-6">Documents</h1>
 
-      {/* Filters */}
-      <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        {/* Filters */}
+        <div className="mb-6 p-4 bg-white rounded-xl shadow-sm border border-gray-200">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* Search */}
           <div className="md:col-span-2">
@@ -270,7 +266,8 @@ function DocumentsPage() {
           ))}
         </div>
       )}
-    </div>
+      </div>
+    </section>
   );
 }
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { login } from "../services/api";
+import { authService } from "../services/authService.js";
 
 function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -16,11 +16,11 @@ function LoginPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await login(form);
-      const { token, user } = res.data.data;
+      const res = await authService.login(form);
+      const { token, user } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("role", user.role);
-      navigate("/home");
+      navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed. Please try again.");
     } finally {
@@ -60,14 +60,14 @@ function LoginPage() {
         </form>
 
         <p className="text-xs text-gray-400 text-center mt-4">
-          <Link to="/landing" className="underline">← Back to homepage</Link>
+          <Link to="/" className="underline">← Back to homepage</Link>
         </p>
         
         <p className="text-sm mt-3">
           Don't have an account?{' '}
-          <a href="/register" className="text-slate-600 hover:text-slate-800 underline">
+          <Link to="/register" className="text-slate-600 hover:text-slate-800 underline">
             Register
-          </a>
+          </Link>
         </p>
       </div>
     </div>

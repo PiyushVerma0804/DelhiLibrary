@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
-import { getAllSubmissions, updateSubmissionStatus, createLibrary, deleteLibrary } from "../services/api";
+import { useState, useEffect, useCallback } from 'react';
+import { adminService } from '../services/adminService.js';
+import { libraryService } from '../services/libraryService.js';
 import { getTypeLabel, normalizeTags, TYPE_LABELS } from "../utils/dataHelpers";
 
 const TYPE_BADGE_STYLES = {
@@ -35,7 +35,7 @@ function MetaRow({ label, value }) {
 
 // ─── Create Library Form ─────────────────────────────────────────────────────
 
-const EMPTY_LIBRARY_FORM = { name: "", description: "", introContent: "" };
+const EMPTY_LIBRARY_FORM = { name: "", description: "", location: "", introContent: "" };
 
 function CreateLibraryForm() {
   const [open, setOpen] = useState(false);
@@ -68,6 +68,7 @@ function CreateLibraryForm() {
     const errs = {};
     if (!form.name.trim()) errs.name = "Library name is required.";
     if (!form.description.trim()) errs.description = "Description is required.";
+    if (!form.location.trim()) errs.location = "Location is required.";
     if (!file) errs.image = "Image is required.";
     return errs;
   };
@@ -81,12 +82,13 @@ function CreateLibraryForm() {
     setStatus(null);
     try {
       const formData = new FormData();
-      formData.append("image", file);
+      formData.append("imageUrl", file);
       formData.append("name", form.name.trim());
       formData.append("description", form.description.trim());
+      formData.append("location", form.location.trim());
       formData.append("introContent", form.introContent.trim());
 
-      await createLibrary(formData);
+      await libraryService.createLibrary(formData);
       setStatus({ type: "success", message: `Library "${form.name.trim()}" created successfully.` });
       setForm(EMPTY_LIBRARY_FORM);
       setFile(null);
@@ -163,6 +165,24 @@ function CreateLibraryForm() {
               }`}
             />
             {errors.description && <p className="text-xs text-red-500 mt-1">{errors.description}</p>}
+          </div>
+
+          {/* Location */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Location <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="location"
+              value={form.location}
+              onChange={handleChange}
+              placeholder="e.g., New Delhi, Connaught Place"
+              className={`w-full border rounded px-3 py-2 text-sm ${
+                errors.location ? "border-red-400" : "border-gray-300"
+              }`}
+            />
+            {errors.location && <p className="text-xs text-red-500 mt-1">{errors.location}</p>}
           </div>
 
           {/* Image Upload */}
@@ -310,7 +330,7 @@ function ActionButtons({ sub, onAction }) {
     setActing(status);
     setActionError(null);
     try {
-      await updateSubmissionStatus(sub._id, status);
+      await adminService.updateSubmissionStatus(sub._id, status);
       onAction(sub._id);
     } catch (err) {
       setActionError(err.response?.data?.message || "Action failed. Please try again.");
@@ -419,8 +439,10 @@ function AdminPage() {
   const fetchSubmissions = useCallback(() => {
     setLoading(true);
     setError(null);
-    getAllSubmissions()
-      .then((res) => setSubmissions(res.data.data.submissions))
+    adminService.getAllSubmissions()
+      .then((res) => {
+        const raw = res.data;
+      })
       .catch(() => {
         setError("Something went wrong. Please try again.");
       })
@@ -465,47 +487,48 @@ function AdminPage() {
 
   // ── Main render ────────────────────────────────────────────────────────────
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      {/* Page header */}
-      <div className="mb-6 pb-4 border-b border-gray-200">
-        <h1 className="text-2xl font-bold text-gray-900 mb-1">Admin Panel</h1>
-        <p className="text-gray-500 text-sm">
+    <section className="py-12">
+      <div className="max-w-4xl mx-auto px-4">
+        <h1 className="text-2xl font-semibold mb-6">Admin Panel</h1>
+        <p className="text-gray-600 mb-6">
           Review each submission carefully before approving or rejecting.
           Approved submissions are published to the archive immediately.
         </p>
-      </div>
 
-      {/* Create Library */}
-      <CreateLibraryForm />
-
-      {/* Empty state */}
-      {submissions.length === 0 ? (
-        <div className="text-center py-20 border border-dashed border-gray-300 rounded-lg">
-          <p className="text-2xl mb-2">✅</p>
-          <p className="text-gray-700 font-medium text-lg mb-1">
-            No pending submissions
-          </p>
-          <p className="text-gray-400 text-sm">
-            All submissions have been reviewed. Check back later.
-          </p>
+        {/* Create Library */}
+        <div className="mb-6">
+          <CreateLibraryForm />
         </div>
-      ) : (
-        <>
-          {/* Count banner */}
-          <div className="mb-5 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600">
-            <strong>{submissions.length}</strong>{" "}
-            submission{submissions.length !== 1 ? "s" : ""} pending review
-          </div>
 
-          {/* Cards grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {submissions.map((sub) => (
-              <SubmissionCard key={sub._id} sub={sub} onAction={handleAction} />
-            ))}
-          </div>
-        </>
-      )}
-    </div>
+        {/* Empty state */}
+        {submissions.length === 0 ? (
+              <div className="text-center py-20 border border-dashed border-gray-300 rounded-lg">
+                <p className="text-2xl mb-2">✅</p>
+                <p className="text-gray-700 font-medium text-lg mb-1">
+                  No pending submissions
+                </p>
+                <p className="text-gray-400 text-sm">
+                  All submissions have been reviewed. Check back later.
+                </p>
+              </div>
+            ) : (
+              <>
+                {/* Count banner */}
+                <div className="mb-5 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600">
+                  <strong>{submissions.length}</strong>{" "}
+                  submission{submissions.length !== 1 ? "s" : ""} pending review
+                </div>
+
+                {/* Cards grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {submissions.map((sub) => (
+                    <SubmissionCard key={sub._id} sub={sub} onAction={handleAction} />
+                  ))}
+                </div>
+              </>
+            )}
+      </div>
+    </section>
   );
 }
 

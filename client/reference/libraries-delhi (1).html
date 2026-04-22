@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Libraries in Delhi</title>
+
+  <!-- Google Fonts: Cormorant Garamond (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================
+       CSS CUSTOM PROPERTIES
+    ============================ */
+    :root {
+      --ink:        #1a1209;
+      --parchment:  #f5f0e8;
+      --cream:      #faf7f2;
+      --gold:       #b8860b;
+      --gold-light: #d4a017;
+      --rust:       #8b3a2a;
+      --sage:       #4a5e4a;
+      --warm-gray:  #8a8074;
+      --card-bg:    #ffffff;
+      --shadow-sm:  0 2px 12px rgba(26,18,9,0.08);
+      --shadow-md:  0 8px 32px rgba(26,18,9,0.14);
+      --shadow-lg:  0 20px 60px rgba(26,18,9,0.18);
+      --radius:     12px;
+      --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    /* ============================
+       RESET & BASE
+    ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img { display: block; width: 100%; object-fit: cover; }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* Reusable section wrapper */
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    .section-subtitle {
+      color: var(--warm-gray);
+      font-size: 1rem;
+      max-width: 540px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 30px;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(184,134,11,0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+    }
+    .btn-outline:hover {
+      background: var(--gold);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ============================
+       NAVBAR
+    ============================ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(184,134,11,0.15);
+      transition: box-shadow var(--transition);
+    }
+
+    #navbar.scrolled {
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .nav-brand-name {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .nav-brand-sub {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--warm-gray);
+      position: relative;
+      padding-bottom: 3px;
+      transition: color var(--transition);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      padding: 9px 22px;
+      font-size: 0.82rem;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--cream);
+      border-top: 1px solid rgba(184,134,11,0.12);
+      padding: 16px 28px 24px;
+      gap: 18px;
+    }
+
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--warm-gray);
+      transition: color var(--transition);
+    }
+
+    .mobile-menu a:hover { color: var(--gold); }
+
+    /* ============================
+       HERO SECTION
+    ============================ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--ink);
+      padding-top: 68px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=80') center/cover no-repeat;
+      opacity: 0.22;
+    }
+
+    /* Warm grain texture overlay */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 50%, rgba(184,134,11,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(139,58,42,0.14) 0%, transparent 55%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px; height: 1px;
+      background: var(--gold-light);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+      font-weight: 300;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.6);
+      max-width: 480px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 48px;
+      right: 0;
+      display: flex;
+      gap: 40px;
+    }
+
+    .stat-item {
+      text-align: right;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-top: 4px;
+    }
+
+    /* ============================
+       ABOUT SECTION
+    ============================ */
+    #about {
+      padding: 100px 0;
+      background: var(--cream);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-image-wrap {
+      position: relative;
+    }
+
+    .about-image-main {
+      border-radius: var(--radius);
+      height: 420px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .about-image-accent {
+      position: absolute;
+      width: 200px;
+      height: 150px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      bottom: -30px;
+      right: -30px;
+      box-shadow: var(--shadow-md);
+      border: 6px solid var(--cream);
+    }
+
+    .about-badge {
+      position: absolute;
+      top: 28px;
+      left: -24px;
+      background: var(--gold);
+      color: #fff;
+      padding: 16px 24px;
+      border-radius: var(--radius);
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      line-height: 1.2;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+
+    .about-badge small {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-top: 3px;
+    }
+
+    .about-text .section-title { margin-bottom: 20px; }
+
+    .about-text p {
+      color: var(--warm-gray);
+      font-size: 0.97rem;
+      margin-bottom: 18px;
+    }
+
+    .about-features {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .feature-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: 10px;
+      background: rgba(184,134,11,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .feature-row h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .feature-row p {
+      font-size: 0.85rem;
+      margin: 0;
+    }
+
+    /* ============================
+       LIBRARIES SECTION
+    ============================ */
+    #libraries {
+      padding: 100px 0;
+      background: var(--parchment);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header .section-subtitle {
+      max-width: 500px;
+      margin: 12px auto 0;
+    }
+
+    .libraries-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    /* Library Card */
+    .lib-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .lib-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .lib-card-image {
+      height: 240px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .lib-card-image img {
+      height: 100%;
+      transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .lib-card:hover .lib-card-image img {
+      transform: scale(1.07);
+    }
+
+    .lib-card-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--gold);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 50px;
+    }
+
+    .lib-card-body {
+      padding: 28px;
+    }
+
+    .lib-card-name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .lib-card-desc {
+      color: var(--warm-gray);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .lib-card-location {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.82rem;
+      color: var(--sage);
+      font-weight: 500;
+      margin-bottom: 22px;
+    }
+
+    .lib-card-location svg {
+      flex-shrink: 0;
+    }
+
+    .lib-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 18px;
+      border-top: 1px solid rgba(26,18,9,0.07);
+    }
+
+    .lib-card-meta {
+      font-size: 0.78rem;
+      color: var(--warm-gray);
+    }
+
+    .lib-card-meta strong {
+      display: block;
+      color: var(--ink);
+      font-size: 0.88rem;
+      margin-bottom: 2px;
+    }
+
+    /* ============================
+       MAP SECTION
+    ============================ */
+    #map {
+      padding: 100px 0;
+      background: var(--cream);
+    }
+
+    .map-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .map-info .section-title {
+      margin-bottom: 16px;
+    }
+
+    .map-info p {
+      color: var(--warm-gray);
+      font-size: 0.92rem;
+      margin-bottom: 28px;
+    }
+
+    .map-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.87rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      box-shadow: 0 0 0 4px rgba(184,134,11,0.18);
+    }
+
+    .map-container {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 4px solid var(--card-bg);
+      position: relative;
+    }
+
+    .map-container iframe {
+      display: block;
+      width: 100%;
+      height: 440px;
+      border: none;
+    }
+
+    /* ============================
+       GALLERY SECTION
+    ============================ */
+    #gallery {
+      padding: 100px 0;
+      background: var(--parchment);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 16px;
+      margin-top: 50px;
+    }
+
+    .gallery-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .gallery-item:nth-child(1) { grid-column: span 2; }
+    .gallery-item:nth-child(5) { grid-column: span 2; }
+
+    .gallery-item img {
+      height: 260px;
+      transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .gallery-item:nth-child(1) img,
+    .gallery-item:nth-child(5) img { height: 300px; }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,18,9,0.65) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay span {
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    /* ============================
+       CONTACT SECTION
+    ============================ */
+    #contact {
+      padding: 100px 0;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #contact::before {
+      content: '"';
+      font-family: var(--font-display);
+      font-size: 28rem;
+      color: rgba(255,255,255,0.02);
+      position: absolute;
+      top: -80px; right: -30px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-info .section-label { color: var(--gold-light); }
+
+    .contact-info .section-title { color: #fff; }
+
+    .contact-info p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.95rem;
+      margin-top: 16px;
+      margin-bottom: 36px;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .contact-detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .detail-icon {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      border-radius: 10px;
+      background: rgba(184,134,11,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .detail-icon svg { color: var(--gold-light); }
+
+    .detail-text strong {
+      display: block;
+      color: #fff;
+      font-size: 0.88rem;
+      margin-bottom: 2px;
+    }
+
+    .detail-text span {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.84rem;
+    }
+
+    /* Form */
+    .contact-form {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: #fff;
+      transition: border-color var(--transition), background var(--transition);
+      outline: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255,255,255,0.22);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      background: rgba(184,134,11,0.06);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .contact-form .btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    footer {
+      background: #0f0b06;
+      padding: 50px 0 30px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 36px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-brand-name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .footer-brand-sub {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 2px;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-nav a {
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.4);
+      transition: color var(--transition);
+    }
+
+    .footer-nav a:hover { color: var(--gold-light); }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.9rem;
+      transition: background var(--transition), color var(--transition), border-color var(--transition);
+      cursor: pointer;
+    }
+
+    .social-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #fff;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      color: rgba(255,255,255,0.2);
+      font-size: 0.8rem;
+    }
+
+    /* ============================
+       SCROLL TO TOP
+    ============================ */
+    #scrollTop {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+      z-index: 900;
+    }
+
+    #scrollTop.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #scrollTop:hover {
+      background: var(--gold-light);
+      transform: translateY(-3px);
+    }
+
+    /* ============================
+       DIVIDER ORNAMENT
+    ============================ */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 12px 0 32px;
+    }
+
+    .ornament-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(184,134,11,0.3));
+    }
+
+    .ornament-line.right {
+      background: linear-gradient(to left, transparent, rgba(184,134,11,0.3));
+    }
+
+    .ornament-diamond {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 1024px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .about-image-wrap { display: none; }
+
+      .map-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .hero-stats { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .mobile-menu.open { display: flex; }
+
+      .libraries-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(5) {
+        grid-column: span 1;
+      }
+
+      .gallery-item img,
+      .gallery-item:nth-child(1) img,
+      .gallery-item:nth-child(5) img {
+        height: 200px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-nav { flex-wrap: wrap; gap: 16px; }
+
+      #contact::before { display: none; }
+
+      .contact-form { padding: 28px 20px; }
+
+      .about-badge { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 2.2rem; }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================
+       NAVBAR
+  ============================ -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <!-- Brand -->
+        <a href="#hero" class="nav-brand" aria-label="Libraries in Delhi - Home">
+          <span class="nav-brand-name">Libraries in Delhi</span>
+          <span class="nav-brand-sub">Knowledge · Culture · Heritage</span>
+        </a>
+
+        <!-- Desktop Links -->
+        <ul class="nav-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#libraries">Libraries</a></li>
+          <li><a href="#map">Map</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <!-- CTA + Hamburger -->
+        <a href="#libraries" class="btn btn-primary nav-cta">Explore Now</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <nav class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#libraries">Libraries</a>
+        <a href="#map">Map</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </nav>
+
+  <!-- ============================
+       HERO SECTION
+  ============================ -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-bg" role="img" aria-label="Library background"></div>
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Since Antiquity, Knowledge Endures</p>
+        <h1 class="hero-title">
+          Explore the Best<br/>
+          <em>Libraries in Delhi</em>
+        </h1>
+        <p class="hero-subtitle">
+          Discover Delhi's most treasured repositories of knowledge — from grand colonial archives to modern learning hubs, each with a story to tell.
+        </p>
+        <div class="hero-actions">
+          <a href="#libraries" class="btn btn-primary">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            Explore Libraries
+          </a>
+          <a href="#about" class="btn btn-outline" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.75);">
+            Learn More
+          </a>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Public Libraries</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Years of Heritage</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">1M+</div>
+          <div class="stat-label">Volumes &amp; Manuscripts</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       ABOUT SECTION
+  ============================ -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Image column -->
+        <div class="about-image-wrap" aria-hidden="true">
+          <div class="about-badge">
+            200+<small>Years of Knowledge</small>
+          </div>
+          <div class="about-image-main">
+            <img
+              src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&q=80"
+              alt="Interior of a grand library"
+              loading="lazy"
+            />
+          </div>
+          <div class="about-image-accent">
+            <img
+              src="https://images.unsplash.com/photo-1529148482759-b35b25c5f217?w=400&q=80"
+              alt="Old manuscripts and books"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Text column -->
+        <div class="about-text">
+          <p class="section-label">About Libraries</p>
+          <h2 class="section-title" id="about-title">Why Libraries Matter in a Changing World</h2>
+          <div class="ornament">
+            <div class="ornament-line"></div>
+            <div class="ornament-diamond"></div>
+            <div class="ornament-line right"></div>
+          </div>
+          <p>
+            Libraries are the living memory of civilisations. In Delhi — a city layered with millennia of history — public libraries serve as sanctuaries of thought, culture, and democratic learning. They are places where every citizen, regardless of background, can access the sum of human knowledge.
+          </p>
+          <p>
+            From the majestic halls of the Delhi Public Library to the specialised collections of India International Centre, these institutions preserve rare manuscripts, foster research, and cultivate the habit of reading in a digital age.
+          </p>
+          <p>
+            This guide celebrates Delhi's finest libraries — their heritage, their collections, and the communities that breathe life into them.
+          </p>
+
+          <div class="about-features" role="list">
+            <div class="feature-row" role="listitem">
+              <div class="feature-icon" aria-hidden="true">📚</div>
+              <div>
+                <h4>Rare Collections</h4>
+                <p>Ancient manuscripts, rare folios, and first editions housed safely for posterity.</p>
+              </div>
+            </div>
+            <div class="feature-row" role="listitem">
+              <div class="feature-icon" aria-hidden="true">🏛️</div>
+              <div>
+                <h4>Heritage Architecture</h4>
+                <p>Many libraries occupy magnificent colonial or Mughal-era buildings of architectural importance.</p>
+              </div>
+            </div>
+            <div class="feature-row" role="listitem">
+              <div class="feature-icon" aria-hidden="true">🌐</div>
+              <div>
+                <h4>Digital Access</h4>
+                <p>Modern libraries offer e-resources, online catalogues, and digitised archives.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       LIBRARIES SECTION
+  ============================ -->
+  <section id="libraries" aria-labelledby="libraries-title">
+    <div class="container">
+      <header class="section-header">
+        <p class="section-label">Curated Picks</p>
+        <h2 class="section-title" id="libraries-title">Notable Libraries of Delhi</h2>
+        <p class="section-subtitle">Four remarkable institutions that define Delhi's intellectual and cultural landscape.</p>
+      </header>
+
+      <div class="libraries-grid">
+
+        <!-- Card 1: Delhi Public Library -->
+        <article class="lib-card">
+          <div class="lib-card-image">
+            <img
+              src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80"
+              alt="Delhi Public Library"
+              loading="lazy"
+            />
+            <span class="lib-card-badge">Est. 1951</span>
+          </div>
+          <div class="lib-card-body">
+            <h3 class="lib-card-name">Delhi Public Library</h3>
+            <p class="lib-card-desc">
+              Established in 1951 under UNESCO's pilot project, the Delhi Public Library is one of the oldest and largest public library networks in India. With over 35 branch libraries across the city, it houses millions of books in multiple languages including Hindi, Urdu, Sanskrit, and English — making knowledge truly accessible to all.
+            </p>
+            <div class="lib-card-location">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-7.1-8-12a8 8 0 0116 0c0 4.9-8 12-8 12z"/><circle cx="12" cy="9" r="3"/></svg>
+              S.P. Mukherjee Marg, Daryaganj, New Delhi
+            </div>
+            <div class="lib-card-footer">
+              <div class="lib-card-meta">
+                <strong>Mon – Sat</strong>
+                9:00 AM – 7:00 PM
+              </div>
+              <a href="#" class="btn btn-outline" style="padding:9px 20px;font-size:0.8rem;">Read More</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2: India International Centre Library -->
+        <article class="lib-card">
+          <div class="lib-card-image">
+            <img
+              src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=80"
+              alt="India International Centre Library"
+              loading="lazy"
+            />
+            <span class="lib-card-badge">Est. 1962</span>
+          </div>
+          <div class="lib-card-body">
+            <h3 class="lib-card-name">India International Centre Library</h3>
+            <p class="lib-card-desc">
+              The IIC Library is a celebrated intellectual hub nestled in the heart of Lodhi Estate. Known for its curated collection of books on international affairs, arts, culture, and the social sciences, it attracts academics, diplomats, and scholars from across the globe. The reading rooms offer a serene atmosphere unmatched in the city.
+            </p>
+            <div class="lib-card-location">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-7.1-8-12a8 8 0 0116 0c0 4.9-8 12-8 12z"/><circle cx="12" cy="9" r="3"/></svg>
+              40, Max Mueller Marg, Lodhi Estate, New Delhi
+            </div>
+            <div class="lib-card-footer">
+              <div class="lib-card-meta">
+                <strong>Mon – Sun</strong>
+                9:30 AM – 8:00 PM
+              </div>
+              <a href="#" class="btn btn-outline" style="padding:9px 20px;font-size:0.8rem;">Read More</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: National Library of India (Delhi Branch) -->
+        <article class="lib-card">
+          <div class="lib-card-image">
+            <img
+              src="https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80"
+              alt="Parliament Library"
+              loading="lazy"
+            />
+            <span class="lib-card-badge">Historical</span>
+          </div>
+          <div class="lib-card-body">
+            <h3 class="lib-card-name">Parliament Library</h3>
+            <p class="lib-card-desc">
+              One of India's most prestigious libraries, the Parliament Library (also known as the Library of Parliament) serves Members of Parliament with comprehensive research support. Its vast collection spans law, governance, political science, economics, and history, backed by a team of expert reference librarians and a state-of-the-art digital archive system.
+            </p>
+            <div class="lib-card-location">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-7.1-8-12a8 8 0 0116 0c0 4.9-8 12-8 12z"/><circle cx="12" cy="9" r="3"/></svg>
+              Parliament House, Sansad Marg, New Delhi
+            </div>
+            <div class="lib-card-footer">
+              <div class="lib-card-meta">
+                <strong>By Appointment</strong>
+                Official Access Only
+              </div>
+              <a href="#" class="btn btn-outline" style="padding:9px 20px;font-size:0.8rem;">Read More</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: Rampur Raza Library (Delhi Collection) -->
+        <article class="lib-card">
+          <div class="lib-card-image">
+            <img
+              src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=800&q=80"
+              alt="Hardayal Municipal Library"
+              loading="lazy"
+            />
+            <span class="lib-card-badge">Est. 1862</span>
+          </div>
+          <div class="lib-card-body">
+            <h3 class="lib-card-name">Hardayal Municipal Public Library</h3>
+            <p class="lib-card-desc">
+              Established in 1862 during the British Raj, the Hardayal Municipal Public Library (formerly Delhi Public Library at Chandni Chowk) is one of the oldest libraries in the national capital. It houses thousands of rare books, Hindi and Urdu periodicals, and historical documents, offering free membership to residents of Delhi — a true gem of Old Delhi.
+            </p>
+            <div class="lib-card-location">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-7.1-8-12a8 8 0 0116 0c0 4.9-8 12-8 12z"/><circle cx="12" cy="9" r="3"/></svg>
+              Chandni Chowk, Old Delhi, New Delhi – 110006
+            </div>
+            <div class="lib-card-footer">
+              <div class="lib-card-meta">
+                <strong>Mon – Sat</strong>
+                8:00 AM – 8:00 PM
+              </div>
+              <a href="#" class="btn btn-outline" style="padding:9px 20px;font-size:0.8rem;">Read More</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       MAP SECTION
+  ============================ -->
+  <section id="map" aria-labelledby="map-title">
+    <div class="container">
+      <div class="map-layout">
+
+        <!-- Info -->
+        <div class="map-info">
+          <p class="section-label">Find Us</p>
+          <h2 class="section-title" id="map-title">Library Locations in Delhi</h2>
+          <div class="ornament">
+            <div class="ornament-line"></div>
+            <div class="ornament-diamond"></div>
+            <div class="ornament-line right"></div>
+          </div>
+          <p>
+            All featured libraries are conveniently located within Delhi's well-connected metro network. Use the map to plan your visit and discover the closest library to you.
+          </p>
+
+          <div class="map-legend" role="list" aria-label="Library locations key">
+            <div class="legend-item" role="listitem">
+              <div class="legend-dot" style="background:var(--gold)"></div>
+              Delhi Public Library — Daryaganj
+            </div>
+            <div class="legend-item" role="listitem">
+              <div class="legend-dot" style="background:var(--rust)"></div>
+              India International Centre — Lodhi Estate
+            </div>
+            <div class="legend-item" role="listitem">
+              <div class="legend-dot" style="background:var(--sage)"></div>
+              Parliament Library — Sansad Marg
+            </div>
+            <div class="legend-item" role="listitem">
+              <div class="legend-dot" style="background:#4a7ab5"></div>
+              Hardayal Municipal Library — Chandni Chowk
+            </div>
+          </div>
+
+          <div style="margin-top:32px;">
+            <a href="https://maps.google.com/maps?q=Delhi+libraries" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-7.1-8-12a8 8 0 0116 0c0 4.9-8 12-8 12z"/><circle cx="12" cy="9" r="3"/></svg>
+              Open in Google Maps
+            </a>
+          </div>
+        </div>
+
+        <!-- Map Embed -->
+        <div class="map-container" role="region" aria-label="Google Map showing Delhi library locations">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d224345.83923192776!2d77.06889754725781!3d28.52758200617607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
+            width="100%"
+            height="440"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Map of Delhi showing library locations"
+          ></iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       GALLERY SECTION
+  ============================ -->
+  <section id="gallery" aria-labelledby="gallery-title">
+    <div class="container">
+      <header class="section-header">
+        <p class="section-label">Visual Tour</p>
+        <h2 class="section-title" id="gallery-title">A Glimpse Inside</h2>
+        <p class="section-subtitle">Explore the beauty of books, reading rooms, and the timeless atmosphere of Delhi's libraries.</p>
+      </header>
+
+      <div class="gallery-grid" role="list" aria-label="Library photo gallery">
+
+        <figure class="gallery-item" role="listitem">
+          <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=900&q=80" alt="Grand library interior with tall bookshelves" loading="lazy" />
+          <div class="gallery-overlay"><span>Grand Reading Hall</span></div>
+        </figure>
+
+        <figure class="gallery-item" role="listitem">
+          <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=80" alt="Stack of old books" loading="lazy" />
+          <div class="gallery-overlay"><span>Rare Collections</span></div>
+        </figure>
+
+        <figure class="gallery-item" role="listitem">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Modern reading room" loading="lazy" />
+          <div class="gallery-overlay"><span>Modern Study Spaces</span></div>
+        </figure>
+
+        <figure class="gallery-item" role="listitem">
+          <img src="https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?w=600&q=80" alt="Open book with warm lighting" loading="lazy" />
+          <div class="gallery-overlay"><span>Quiet Reflection</span></div>
+        </figure>
+
+        <figure class="gallery-item" role="listitem">
+          <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=900&q=80" alt="Library corridor with books" loading="lazy" />
+          <div class="gallery-overlay"><span>Endless Aisles of Knowledge</span></div>
+        </figure>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       CONTACT SECTION
+  ============================ -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="contact-inner">
+
+        <!-- Info -->
+        <div class="contact-info">
+          <p class="section-label">Get In Touch</p>
+          <h2 class="section-title" id="contact-title">We'd Love to Hear From You</h2>
+          <p>Have a suggestion, a story about your favourite library, or want to add a listing? Reach out to us and we'll get back to you promptly.</p>
+
+          <div class="contact-details">
+            <div class="contact-detail-item">
+              <div class="detail-icon">
+                <svg width="18" height="18" fill="none" stroke="#d4a017" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="detail-text">
+                <strong>Location</strong>
+                <span>New Delhi, India — 110001</span>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <div class="detail-icon">
+                <svg width="18" height="18" fill="none" stroke="#d4a017" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="detail-text">
+                <strong>Email</strong>
+                <span>hello@librariesindelhi.in</span>
+              </div>
+            </div>
+            <div class="contact-detail-item">
+              <div class="detail-icon">
+                <svg width="18" height="18" fill="none" stroke="#d4a017" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.0 2.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14z"/></svg>
+              </div>
+              <div class="detail-text">
+                <strong>Phone</strong>
+                <span>+91 11 0000 0000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="contact-form" role="form" aria-label="Contact form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contact-name">Full Name</label>
+              <input type="text" id="contact-name" name="name" placeholder="Your full name" autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email Address</label>
+              <input type="email" id="contact-email" name="email" placeholder="you@example.com" autocomplete="email" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="contact-subject">Subject</label>
+            <input type="text" id="contact-subject" name="subject" placeholder="How can we help?" />
+          </div>
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" name="message" placeholder="Tell us your thoughts, questions, or suggestions…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send Message
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       FOOTER
+  ============================ -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <!-- Brand -->
+        <div>
+          <div class="footer-brand-name">Libraries in Delhi</div>
+          <div class="footer-brand-sub">Knowledge · Culture · Heritage</div>
+        </div>
+
+        <!-- Nav Links -->
+        <ul class="footer-nav">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#libraries">Libraries</a></li>
+          <li><a href="#map">Map</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <!-- Social Icons -->
+        <div class="footer-social" aria-label="Social media links">
+          <!-- Facebook -->
+          <a href="#" class="social-btn" aria-label="Facebook">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <!-- Twitter / X -->
+          <a href="#" class="social-btn" aria-label="Twitter">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+          </a>
+          <!-- Instagram -->
+          <a href="#" class="social-btn" aria-label="Instagram">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <!-- YouTube -->
+          <a href="#" class="social-btn" aria-label="YouTube">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.45A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.97C5.12 20 12 20 12 20s6.88 0 8.59-.45a2.78 2.78 0 001.95-1.97A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="var(--ink)"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Libraries in Delhi. All rights reserved. | Designed with ♥ for readers everywhere.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollTop" aria-label="Scroll to top">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <!-- ============================
+       JAVASCRIPT
+  ============================ -->
+  <script>
+    /* Navbar scroll shadow */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    /* Mobile hamburger toggle */
+    const btn = document.getElementById('hamburgerBtn');
+    const menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen);
+      menu.setAttribute('aria-hidden', !isOpen);
+    });
+
+    /* Close mobile menu on link click */
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+      });
+    });
+
+    /* Scroll to top button */
+    const scrollTopBtn = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+      scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* Simple intersection observer for fade-in on scroll */
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      }),
+      { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+    );
+
+    document.querySelectorAll('.lib-card, .gallery-item, .feature-row').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

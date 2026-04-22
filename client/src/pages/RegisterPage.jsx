@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { register } from '../services/api';
+import { authService } from '../services/authService.js';
 
 export default function RegisterPage() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
@@ -15,7 +15,7 @@ export default function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await register(form);
+      await authService.register(form);
       setMsg('Account created. Please login.');
       setTimeout(() => navigate('/login'), 1200);
     } catch (err) {
