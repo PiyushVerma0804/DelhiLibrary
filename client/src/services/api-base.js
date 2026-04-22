@@ -25,30 +25,30 @@ API.interceptors.response.use(
 );
 
 // Raw API calls for services to use
-export const login = (data) => API.post("/api/auth/login", data);
-export const register = (data) => API.post("/api/auth/register", data);
-export const getLibraries = () => API.get("/api/libraries");
-export const getLibraryById = (id) => API.get(`/api/libraries/${id}`);
+export const login = (data) => API.post("/auth/login", data);
+export const register = (data) => API.post("/auth/register", data);
+export const getLibraries = () => API.get("/libraries");
+export const getLibraryById = (id) => API.get(`/libraries/${id}`);
 export const createLibrary = (data) => {
   if (data instanceof FormData) {
-    return API.post("/api/libraries", data, {
+    return API.post("/libraries", data, {
       headers: { "Content-Type": "multipart/form-data" }
     });
   }
-  return API.post("/api/libraries", data);
+  return API.post("/libraries", data);
 };
-export const deleteLibrary = (id) => API.delete(`/api/libraries/${id}`);
+export const deleteLibrary = (id) => API.delete(`/libraries/${id}`);
 export const getDocuments = (queryParams = "") => {
-  const url = queryParams ? `/api/documents?${queryParams}` : "/api/documents";
+  const url = queryParams ? `/documents?${queryParams}` : "/documents";
   return API.get(url);
 };
 export const createSubmission = (formData) =>
-  API.post("/api/submissions", formData, {
+  API.post("/submissions", formData, {
     headers: { "Content-Type": "multipart/form-data" }
   });
-export const getMySubmissions = () => API.get("/api/submissions/my");
-export const getAllSubmissions = () => API.get("/api/admin/submissions");
+export const getMySubmissions = () => API.get("/submissions/my");
+export const getAllSubmissions = () => API.get("/admin/submissions");
 export const updateSubmissionStatus = (id, status) =>
-  API.patch(`/api/admin/submissions/${id}`, { status });
+  API.patch(`/admin/submissions/${id}`, { status });
 
 export default API;
