@@ -58,7 +58,9 @@ function DocumentsPage() {
     
     documentService.getDocuments(queryParams.toString())
       .then((res) => {
-        setDocuments(res.documents || []);
+        const raw = res.data;
+        const documentsData = raw?.documents || raw?.data?.documents || raw || [];
+        setDocuments(documentsData);
       })
       .catch(() => setError("Failed to load documents. Please try again."))
       .finally(() => setLoading(false));
@@ -66,7 +68,11 @@ function DocumentsPage() {
 
   const fetchLibraries = useCallback(() => {
     libraryService.getAllLibraries()
-      .then((res) => setLibraries(res.libraries || []))
+      .then((res) => {
+        const raw = res.data;
+        const librariesData = raw?.libraries || raw?.data?.libraries || raw || [];
+        setLibraries(librariesData);
+      })
       .catch(() => console.error("Failed to load libraries"));
   }, []);
 
