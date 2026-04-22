@@ -12,40 +12,48 @@ function Hero() {
       />
 
       {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-black/60"></div>
+      <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Content */}
       <div className="relative z-10 text-center max-w-3xl mx-auto px-4">
         <div className="flex flex-col gap-4">
           {/* Title */}
-          <h1 className="font-display text-white font-light leading-tight text-4xl sm:text-5xl lg:text-6xl">
+          <h1 className="font-display text-gray-900 font-light leading-tight text-4xl sm:text-5xl lg:text-6xl">
             Explore Best<br />
             <em className="text-primary-200 not-italic">Libraries in Delhi</em>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-white/60 text-lg max-w-lg mx-auto leading-relaxed font-light">
+          <p className="text-gray-700 text-lg max-w-lg mx-auto leading-relaxed font-light">
             Discover Delhi's most treasured repositories of knowledge — from grand colonial archives to modern learning hubs, each with a story to tell.
           </p>
 
           {/* Actions */}
           <div className="flex flex-wrap gap-4 justify-center items-center">
-            <Link
-              to="/libraries"
+            <button
+              onClick={() => {
+                document.getElementById("libraries-section")?.scrollIntoView({
+                  behavior: "smooth"
+                });
+              }}
               className="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-8 rounded-full text-base transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
               aria-label="Explore Libraries"
             >
               <span className="w-4 h-4">→</span>
               Explore Libraries
-            </Link>
+            </button>
 
-            <Link
-              to="/about"
+            <button
+              onClick={() => {
+                document.getElementById("about-section")?.scrollIntoView({
+                  behavior: "smooth"
+                });
+              }}
               className="inline-flex items-center gap-2 bg-transparent hover:bg-white hover:text-primary-600 text-primary-600 border-2 border-white/30 hover:border-white font-semibold py-3 px-8 rounded-full text-base transition-all duration-300 hover:-translate-y-0.5"
               aria-label="Learn More"
             >
               Learn More
-            </Link>
+            </button>
           </div>
         </div>
       </div>

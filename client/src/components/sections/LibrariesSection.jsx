@@ -68,7 +68,7 @@ function LibrariesSection() {
   const displayLibraries = libraries.length > 0 ? libraries : fallbackLibraries;
 
   return (
-    <section className="py-12">
+    <section id="libraries-section" className="py-12">
 
         {/* Header */}
         <div className="text-center mb-16">

@@ -54,19 +54,26 @@ function LibraryDetailsUI({ data, loading, error, onRetry }) {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className="bg-primary-900 text-white">
+      <div className="bg-primary-900 text-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="max-w-3xl">
-            <Link
-              to="/libraries"
+            <button
+              onClick={() => {
+                navigate("/");
+                setTimeout(() => {
+                  document.getElementById("libraries-section")?.scrollIntoView({
+                    behavior: "smooth"
+                  });
+                }, 100);
+              }}
               className="inline-flex items-center text-primary-200 hover:text-white mb-6 transition-colors"
             >
               <span className="mr-2">-</span>
               Back to Libraries
-            </Link>
+            </button>
 
             <h1 className="text-2xl md:text-3xl font-display font-semibold mb-4">{data.name}</h1>
-            <p className="text-xl text-primary-100">{data.description}</p>
+            <p className="text-xl text-gray-700">{data.description}</p>
           </div>
         </div>
       </div>
