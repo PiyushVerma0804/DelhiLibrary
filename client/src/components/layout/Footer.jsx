@@ -35,28 +35,17 @@ function Footer() {
                   Gallery
                 </Link>
               </li>
-              <li>
-                <Link to="/contact" className="text-gray-300 hover:text-white text-sm transition">
-                  Contact
-                </Link>
-              </li>
             </ul>
           </div>
           
-                    
-          {/* Social */}
+          {/* Contact Information */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Connect</h3>
-            <div className="flex space-x-4">
-              
-              {/* Facebook placeholder */}
-              <span className="h-6 w-6 flex items-center justify-center text-sm font-bold text-gray-400 hover:text-white cursor-pointer">
-                f
-              </span>
-
-              {/* Twitter placeholder */}
-              <span className="h-6 w-6 flex items-center justify-center text-sm font-bold text-gray-400 hover:text-white cursor-pointer">𝕏</span>
-
+            <h3 className="text-lg font-semibold mb-4">CONTACT INFORMATION</h3>
+            <div className="space-y-3">
+              <h4 className="text-white font-semibold">Get In Touch</h4>
+              <p className="text-gray-300 text-sm">Delhi, India</p>
+              <p className="text-gray-300 text-sm">8092828067</p>
+              <p className="text-gray-300 text-sm">libraryarchivesdelhi@gmail.com</p>
             </div>
           </div>
 
