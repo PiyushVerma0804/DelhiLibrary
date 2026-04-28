@@ -43,9 +43,9 @@ function Footer() {
             <h3 className="text-lg font-semibold mb-4">CONTACT INFORMATION</h3>
             <div className="space-y-3">
               <h4 className="text-white font-semibold">Get In Touch</h4>
-              <p className="text-gray-300 text-sm">Delhi, India</p>
-              <p className="text-gray-300 text-sm">8092828067</p>
-              <p className="text-gray-300 text-sm">libraryarchivesdelhi@gmail.com</p>
+              <p className="text-gray-300 text-sm">📍 Delhi, India</p>
+              <p className="text-gray-300 text-sm">📞 8092828067</p>
+              <p className="text-gray-300 text-sm">✉️ libraryarchivesdelhi@gmail.com</p>
             </div>
           </div>
 

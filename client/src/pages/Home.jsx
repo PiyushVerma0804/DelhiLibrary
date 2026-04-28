@@ -1,7 +1,6 @@
 import Hero from '../components/sections/Hero';
 import About from '../components/sections/About';
 import LibrariesSection from '../components/sections/LibrariesSection';
-import Contact from '../components/sections/Contact';
 
 function Home() {
   return (
@@ -9,7 +8,6 @@ function Home() {
       <Hero />
       <About />
       <LibrariesSection />
-      <Contact />
     </main>
   );
 }
