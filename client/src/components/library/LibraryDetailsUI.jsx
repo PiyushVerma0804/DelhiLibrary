@@ -1,8 +1,30 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import DocumentList from './DocumentList';
+import { deleteLibrary } from '../../services/api-base.js';
 
 function LibraryDetailsUI({ data, loading, error, onRetry }) {
   const navigate = useNavigate();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState(null);
+  const role = localStorage.getItem("role");
+  const isAdmin = role === "admin";
+
+  const handleDelete = async () => {
+    const confirmed = window.confirm("Are you sure you want to delete this library? This action cannot be undone.");
+    if (!confirmed) return;
+
+    setIsDeleting(true);
+    setDeleteError(null);
+    try {
+      await deleteLibrary(data._id);
+      navigate("/");
+    } catch (err) {
+      setDeleteError("Failed to delete library. Please try again.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -136,6 +158,25 @@ function LibraryDetailsUI({ data, loading, error, onRetry }) {
                   <span className="text-white">Submit Document</span>
                 </button>
               </div>
+
+              {isAdmin && (
+                <>
+                  {deleteError && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                      <p className="text-red-600 text-sm">{deleteError}</p>
+                    </div>
+                  )}
+                  <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition p-4">
+                    <button
+                      onClick={handleDelete}
+                      disabled={isDeleting}
+                      className="w-full bg-red-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isDeleting ? "Deleting..." : "Delete Library"}
+                    </button>
+                  </div>
+                </>
+              )}
 
             </div>
           </div>
