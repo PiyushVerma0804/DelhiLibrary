@@ -99,7 +99,7 @@ function Sidebar() {
                 Navigate with us
               </h3>
               
-              <div className="rounded-md overflow-hidden h-[260px]">
+              <div className="rounded-md overflow-hidden h-[380px]">
                 <iframe
                   src="https://www.google.com/maps/d/embed?mid=1bqBwWs_SZmad_rZ6YgKqPcTL9Hh4gx4&ehbc=2E312F"
                   width="100%"
