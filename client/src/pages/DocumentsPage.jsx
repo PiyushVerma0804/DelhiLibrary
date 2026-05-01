@@ -45,8 +45,33 @@ function DocumentsPage() {
     libraryId: "",
   });
   const [deletingId, setDeletingId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const role = localStorage.getItem("role");
   const isAdmin = role === "admin";
+
+  const getFileType = (url) => {
+    if (!url) return 'other';
+    const extension = url.split('.').pop().toLowerCase();
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'webp'];
+    if (imageExtensions.includes(extension)) return 'image';
+    if (extension === 'pdf') return 'pdf';
+    return 'other';
+  };
+
+  const handleDocumentClick = (doc) => {
+    const fileType = getFileType(doc.fileUrl);
+    
+    if (fileType === 'image') {
+      setSelectedImage(doc.fileUrl);
+      setIsModalOpen(true);
+    } else if (fileType === 'pdf') {
+      setSelectedImage(doc.fileUrl);
+      setIsModalOpen(true);
+    } else {
+      window.open(doc.fileUrl, "_blank");
+    }
+  };
 
   const handleDelete = async (docId, e) => {
     e.stopPropagation();
@@ -241,7 +266,7 @@ function DocumentsPage() {
           {documents.map((doc) => (
             <div
               key={doc._id}
-              onClick={() => window.open(doc.fileUrl, "_blank")}
+              onClick={() => handleDocumentClick(doc)}
               className="border rounded bg-white overflow-hidden cursor-pointer hover:shadow-md transition-shadow flex flex-col"
             >
               {/* Preview */}
@@ -299,6 +324,36 @@ function DocumentsPage() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+      
+      {isModalOpen && selectedImage && (
+        <div
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div className="relative max-w-5xl w-full mx-4">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute -top-10 right-0 text-white text-2xl hover:text-gray-300"
+            >
+              ✕
+            </button>
+            {getFileType(selectedImage) === 'pdf' ? (
+              <iframe
+                src={selectedImage}
+                className="w-full h-[80vh] border rounded"
+                title="PDF Viewer"
+              />
+            ) : (
+              <img
+                src={selectedImage}
+                alt="Document preview"
+                className="w-full h-auto max-h-[80vh] object-contain rounded"
+                onClick={(e) => e.stopPropagation()}
+              />
+            )}
+          </div>
         </div>
       )}
       </div>
