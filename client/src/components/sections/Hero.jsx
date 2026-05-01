@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center text-center bg-primary-900">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center text-center bg-primary-900">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"

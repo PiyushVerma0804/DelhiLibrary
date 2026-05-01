@@ -1,6 +1,30 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 function Footer() {
+  const [showGalleryModal, setShowGalleryModal] = useState(false);
+
+  const handleHomeClick = (e) => {
+    e.preventDefault();
+    window.location.href = '/';
+    setTimeout(() => {
+      document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
+  const handleBrowseArchivesClick = (e) => {
+    e.preventDefault();
+    window.location.href = '/';
+    setTimeout(() => {
+      document.getElementById("libraries-section")?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
+  const handleGalleryClick = (e) => {
+    e.preventDefault();
+    setShowGalleryModal(true);
+  };
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -21,19 +45,19 @@ function Footer() {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-gray-300 hover:text-white text-sm transition">
+                <a href="/" onClick={handleHomeClick} className="text-gray-300 hover:text-white text-sm transition">
                   Home
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/libraries" className="text-gray-300 hover:text-white text-sm transition">
+                <a href="/libraries" onClick={handleBrowseArchivesClick} className="text-gray-300 hover:text-white text-sm transition">
                   Browse Archives
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/gallery" className="text-gray-300 hover:text-white text-sm transition">
+                <a href="/gallery" onClick={handleGalleryClick} className="text-gray-300 hover:text-white text-sm transition">
                   Gallery
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -78,6 +102,25 @@ function Footer() {
         </div>
 
       </div>
+      
+      {/* Gallery Modal */}
+      {showGalleryModal && (
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+          onClick={() => setShowGalleryModal(false)}
+        >
+          <div className="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
+            <h3 className="text-xl font-semibold mb-4 text-gray-900">Gallery</h3>
+            <p className="text-gray-600 mb-6">Gallery will be available soon</p>
+            <button
+              onClick={() => setShowGalleryModal(false)}
+              className="px-6 py-2 bg-gray-900 text-white rounded hover:bg-gray-800 transition"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </footer>
   );
 }
