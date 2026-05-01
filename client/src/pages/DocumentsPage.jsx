@@ -260,9 +260,9 @@ function DocumentsPage() {
                     <button
                       onClick={(e) => handleDelete(doc._id, e)}
                       disabled={deletingId === doc._id}
-                      className="w-full mt-2 bg-red-600 text-white py-2 px-3 rounded text-sm font-medium hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="mt-2 text-xs text-red-600 hover:text-red-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {deletingId === doc._id ? "Deleting..." : "Delete Document"}
+                      {deletingId === doc._id ? "Deleting..." : "Delete"}
                     </button>
                   )}
 
