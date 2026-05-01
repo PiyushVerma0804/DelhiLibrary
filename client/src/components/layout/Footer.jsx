@@ -1,23 +1,36 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 function Footer() {
   const [showGalleryModal, setShowGalleryModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleHomeClick = (e) => {
     e.preventDefault();
-    window.location.href = '/';
-    setTimeout(() => {
+    const currentPath = window.location.pathname;
+    
+    if (currentPath === '/') {
       document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
   };
 
   const handleBrowseArchivesClick = (e) => {
     e.preventDefault();
-    window.location.href = '/';
-    setTimeout(() => {
+    const currentPath = window.location.pathname;
+    
+    if (currentPath === '/') {
       document.getElementById("libraries-section")?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById("libraries-section")?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
   };
 
   const handleGalleryClick = (e) => {
