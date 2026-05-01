@@ -49,6 +49,22 @@ function Footer() {
             </div>
           </div>
 
+          {/* Become a Contributor */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">BECOME A CONTRIBUTOR</h3>
+            <p className="text-gray-300 text-sm mb-4">
+              Join us in preserving digital heritage and making historical materials accessible to everyone.
+            </p>
+            <a
+              href="https://share.google/kWAhsiU29Tu5PIaMV"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-primary-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-primary-700 transition"
+            >
+              Contribute
+            </a>
+          </div>
+
         </div>
         
         {/* Bottom */}
