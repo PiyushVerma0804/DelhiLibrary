@@ -34,20 +34,20 @@ function Sidebar() {
       <div
         ref={sidebarRef}
         className="border border-blue-200 rounded-md p-6 shadow-sm"
-        style={{ 
+        style={{
           backgroundColor: 'rgba(59, 130, 246, 0.1)',
-          opacity: 0, 
-          transform: 'translateY(30px)', 
-          transition: 'opacity 500ms ease, transform 500ms ease' 
+          opacity: 0,
+          transform: 'translateY(30px)',
+          transition: 'opacity 500ms ease, transform 500ms ease'
         }}
       >
         <div className="space-y-8">
           {/* Team Section */}
           <div>
-            <p className="text-xs uppercase tracking-widest text-[#6f655f] mb-4">
-              Team Archive of Archives
+            <p className="text-xs uppercase tracking-widest text-[#6f655f] mb-4 font-bold">
+              MEET THE TEAM: ARCHIVE OF ARCHIVES
             </p>
-            
+
             <img
               src="/team-photo.jpg"
               alt="Team"
@@ -56,8 +56,8 @@ function Sidebar() {
                 e.target.src = "https://via.placeholder.com/800x180?text=Team+Photo";
               }}
             />
-            
-            <div className="flex justify-between text-xs text-[#1f1a17]">
+
+            <div className="flex justify-center gap-6 text-xs text-[#1f1a17] text-center">
               <span>Aakanksha Singh</span>
               <span>Shamiparna Chatterjee</span>
               <span>Titiksha Monga</span>
@@ -70,15 +70,15 @@ function Sidebar() {
               <p className="text-xs uppercase tracking-widest text-[#6f655f] mb-4">
                 Contributor
               </p>
-              
+
               <h3 className="text-lg font-semibold text-[#1f1a17] mb-3">
                 Become a contributor
               </h3>
-              
+
               <p className="text-sm text-[#6f655f] mb-4">
                 Share your experience anonymously and help us analyse Delhi libraries better
               </p>
-              
+
               <button
                 onClick={handleContributeClick}
                 className="w-full bg-[#a07c45] hover:bg-[#8a6a3d] text-white py-3 px-4 rounded-md font-medium transition-colors"
@@ -94,11 +94,11 @@ function Sidebar() {
               <p className="text-xs uppercase tracking-widest text-[#6f655f] mb-4">
                 Map
               </p>
-              
+
               <h3 className="text-lg font-semibold text-[#1f1a17] mb-3">
                 Navigate with us
               </h3>
-              
+
               <div className="rounded-md overflow-hidden h-[380px]">
                 <iframe
                   src="https://www.google.com/maps/d/embed?mid=1bqBwWs_SZmad_rZ6YgKqPcTL9Hh4gx4&ehbc=2E312F"
