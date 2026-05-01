@@ -2,17 +2,20 @@ import { Link } from 'react-router-dom';
 
 function Hero() {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center text-center bg-primary-900">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center text-center">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
-        style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=80)' }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ 
+          backgroundImage: 'url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=80)',
+          opacity: 0.7
+        }}
         role="img"
         aria-label="Library background"
       />
 
       {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-black/50"></div>
+      <div className="absolute inset-0 bg-black/30"></div>
 
       {/* Content */}
       <div className="relative z-10 max-w-3xl mx-auto px-4 flex flex-col items-center gap-6">
