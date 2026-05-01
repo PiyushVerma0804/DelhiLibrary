@@ -42,7 +42,7 @@ function Footer() {
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
           {/* Brand */}
           <div>
@@ -84,22 +84,6 @@ function Footer() {
               <p className="text-gray-300 text-sm">📞 8092828067</p>
               <p className="text-gray-300 text-sm">✉️ libraryarchivesdelhi@gmail.com</p>
             </div>
-          </div>
-
-          {/* Become a Contributor */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">BECOME A CONTRIBUTOR</h3>
-            <p className="text-gray-300 text-sm mb-4">
-              Join us in preserving digital heritage and making historical materials accessible to everyone.
-            </p>
-            <a
-              href="https://share.google/kWAhsiU29Tu5PIaMV"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-white/20 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
-            >
-              Contribute
-            </a>
           </div>
 
         </div>
