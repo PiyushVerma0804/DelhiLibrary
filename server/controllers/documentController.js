@@ -71,7 +71,43 @@ const getDocumentById = async (req, res) => {
   }
 };
 
+const deleteDocument = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: 'Document ID is required'
+      });
+    }
+
+    const document = await Document.findById(id);
+
+    if (!document) {
+      return res.status(404).json({
+        success: false,
+        message: 'Document not found'
+      });
+    }
+
+    await Document.findByIdAndDelete(id);
+
+    res.json({
+      success: true,
+      message: 'Document deleted successfully'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Server error deleting document',
+      error: error.message
+    });
+  }
+};
+
 export {
   getAllDocuments,
-  getDocumentById
+  getDocumentById,
+  deleteDocument
 };

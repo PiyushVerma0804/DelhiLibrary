@@ -40,6 +40,7 @@ export const getDocuments = (queryParams = "") => {
   const url = queryParams ? `/documents?${queryParams}` : "/documents";
   return API.get(url);
 };
+export const deleteDocument = (id) => API.delete(`/documents/${id}`);
 export const createSubmission = (formData) =>
   API.post("/submissions", formData, {
     headers: { "Content-Type": "multipart/form-data" }

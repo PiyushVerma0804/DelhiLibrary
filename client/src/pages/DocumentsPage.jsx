@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { documentService } from "../services/documentService.js";
 import { libraryService } from "../services/libraryService.js";
+import { deleteDocument } from "../services/api-base.js";
 import { getTypeLabel, normalizeTags, TYPE_LABELS } from "../utils/dataHelpers";
 import { useDebounce } from "../hooks/useDebounce";
 
@@ -43,6 +44,25 @@ function DocumentsPage() {
     type: "",
     libraryId: "",
   });
+  const [deletingId, setDeletingId] = useState(null);
+  const role = localStorage.getItem("role");
+  const isAdmin = role === "admin";
+
+  const handleDelete = async (docId, e) => {
+    e.stopPropagation();
+    const confirmed = window.confirm("Are you sure you want to delete this document?");
+    if (!confirmed) return;
+
+    setDeletingId(docId);
+    try {
+      await deleteDocument(docId);
+      setDocuments((prev) => prev.filter((doc) => doc._id !== docId));
+    } catch (err) {
+      alert("Failed to delete document");
+    } finally {
+      setDeletingId(null);
+    }
+  };
 
   // Debounce search to avoid excessive API calls
   const debouncedSearch = useDebounce(filters.search, 300);
@@ -236,6 +256,15 @@ function DocumentsPage() {
                       {getTypeLabel(doc.type)}
                     </span>
                   </div>
+                  {isAdmin && (
+                    <button
+                      onClick={(e) => handleDelete(doc._id, e)}
+                      disabled={deletingId === doc._id}
+                      className="w-full mt-2 bg-red-600 text-white py-2 px-3 rounded text-sm font-medium hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {deletingId === doc._id ? "Deleting..." : "Delete Document"}
+                    </button>
+                  )}
 
                   {doc.source && (
                     <p className="text-xs text-gray-500 mb-3">
