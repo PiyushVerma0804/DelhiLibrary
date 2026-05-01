@@ -57,7 +57,7 @@ function Sidebar() {
               }}
             />
 
-            <div className="flex justify-center text-s text-[#1f1a17] text-center">
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-0 text-sm text-[#1f1a17] text-center sm:text-left">
               <span>Aakanksha Singh</span>
               <span>Shamiparna Chatterjee</span>
               <span>Titiksha Monga</span>
