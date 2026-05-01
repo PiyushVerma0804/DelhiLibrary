@@ -71,7 +71,7 @@ function LibrariesSection() {
     <section id="libraries-section" className="py-12">
 
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <p className="text-primary-600 text-sm font-semibold uppercase mb-3">
             Featured Libraries
           </p>
