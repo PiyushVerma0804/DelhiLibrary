@@ -72,7 +72,7 @@ function Sidebar() {
               </p>
 
               <h3 className="text-lg font-semibold text-[#1f1a17] mb-3">
-                Become a contributor
+                BECOME A CONTRIBUTOR
               </h3>
 
               <p className="text-sm text-[#6f655f] mb-4">
