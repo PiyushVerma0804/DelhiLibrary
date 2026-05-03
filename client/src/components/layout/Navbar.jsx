@@ -11,7 +11,14 @@ function Navbar() {
   const isLoggedIn = !!token;
   const isAdmin = role === 'admin';
 
+  const isHomePage = location.pathname === "/";
+
   useEffect(() => {
+    if (!isHomePage) {
+      setVisible(true);
+      return;
+    }
+
     const handleScroll = () => {
       if (window.scrollY > 10) {
         setIsOpen(false);
@@ -23,7 +30,7 @@ function Navbar() {
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   const isActive = (path) => {
     return location.pathname === path;
@@ -50,21 +57,18 @@ function Navbar() {
           <div className="flex items-center">
             <Link
               to="/"
-              className="flex-shrink-0 flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-200"
+              className="flex-shrink-0 flex items-center transition-colors duration-200"
             >
-              <svg className="h-8 w-8 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h18" />
-              </svg>
-              <span className="text-xl font-bold">Archive of Archives</span>
+              <img src="/logo.png" alt="Archive of Archives" className="h-16 w-auto mr-3" />
+              <span className="font-serif text-xl font-semibold tracking-wide text-[#b8860b] hover:text-[#d4a017]">Archive of Archives</span>
             </Link>
           </div>
 
           <div className="hidden md:flex md:items-center md:space-x-8">
             <Link
               to="/"
-              className={`text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                isActive('/') ? 'bg-blue-50 text-blue-600' : ''
-              }`}
+              className={`text-gray-700 hover:text-[#b8860b] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${isActive('/') ? 'bg-amber-50 text-[#b8860b]' : ''
+                }`}
             >
               Home
             </Link>
@@ -72,18 +76,16 @@ function Navbar() {
               <>
                 <Link
                   to="/documents"
-                  className={`text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                    isActive('/documents') ? 'bg-blue-50 text-blue-600' : ''
-                  }`}
+                  className={`text-gray-700 hover:text-[#b8860b] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${isActive('/documents') ? 'bg-amber-50 text-[#b8860b]' : ''
+                    }`}
                 >
                   Documents
                 </Link>
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    className={`text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                      isActive('/admin') ? 'bg-blue-50 text-blue-600' : ''
-                    }`}
+                    className={`text-gray-700 hover:text-[#b8860b] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${isActive('/admin') ? 'bg-amber-50 text-[#b8860b]' : ''
+                      }`}
                   >
                     Admin
                   </Link>
@@ -104,7 +106,7 @@ function Navbar() {
               <>
                 <Link
                   to="/login"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                  className="bg-[#b8860b] hover:bg-[#d4a017] text-white px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
                 >
                   Sign In
                 </Link>
@@ -141,7 +143,7 @@ function Navbar() {
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link
                 to="/"
-                className="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+                className="block text-gray-700 hover:text-[#b8860b] px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
               >
                 Home
               </Link>
@@ -149,14 +151,14 @@ function Navbar() {
                 <>
                   <Link
                     to="/documents"
-                    className="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+                    className="block text-gray-700 hover:text-[#b8860b] px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
                   >
                     Documents
                   </Link>
                   {isAdmin && (
                     <Link
                       to="/admin"
-                      className="block text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+                      className="block text-gray-700 hover:text-[#b8860b] px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
                     >
                       Admin
                     </Link>
@@ -175,7 +177,7 @@ function Navbar() {
                   <>
                     <Link
                       to="/login"
-                      className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-base font-medium transition-colors duration-200"
+                      className="block w-full text-center bg-[#b8860b] hover:bg-[#d4a017] text-white px-4 py-2 rounded-md text-base font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
                     >
                       Sign In
                     </Link>

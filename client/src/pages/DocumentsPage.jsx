@@ -139,7 +139,7 @@ function DocumentsPage() {
 
   if (loading) {
     return (
-      <div className="p-8 text-center text-gray-500">
+      <div className="pt-20 p-8 text-center text-gray-500">
         <p>Loading documents…</p>
       </div>
     );
@@ -147,7 +147,7 @@ function DocumentsPage() {
 
   if (error) {
     return (
-      <div className="p-8 max-w-md mx-auto text-center">
+      <div className="pt-20 p-8 max-w-md mx-auto text-center">
         <div className="border border-red-200 bg-red-50 rounded-lg p-6">
           <p className="text-red-700 font-medium mb-1">⚠ Error</p>
           <p className="text-red-600 text-sm mb-4">{error}</p>
@@ -165,7 +165,7 @@ function DocumentsPage() {
   const hasActiveFilters = filters.search || filters.type || filters.libraryId;
 
   return (
-    <section className="py-12">
+    <section className="pt-20 py-12">
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-2xl font-semibold mb-6">Documents</h1>
 

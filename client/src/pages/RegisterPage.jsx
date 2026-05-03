@@ -25,7 +25,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50 flex items-center justify-center px-6">
+    <div className="min-h-screen bg-stone-50 flex items-center justify-center px-6 pt-20">
       <div className="max-w-md w-full">
         <div className="bg-white border border-stone-200 rounded-lg p-8 shadow-sm">
           <h2 className="text-2xl font-serif font-semibold text-slate-900 mb-6 text-center">Create Account</h2>
@@ -93,7 +93,7 @@ export default function RegisterPage() {
             
             <button 
               type="submit" 
-              className="w-full bg-slate-900 text-white py-2 rounded-md hover:bg-slate-800 transition-colors font-medium"
+              className="w-full bg-[#b8860b] text-white py-2 rounded-md hover:bg-[#d4a017] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg font-medium"
             >
               Register
             </button>

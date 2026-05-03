@@ -27,9 +27,9 @@ function LibraryDetailsUI({ data, loading, error, onRetry }) {
   };
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen pt-20 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b8860b] mx-auto mb-4"></div>
           <p className="text-gray-600">Loading library details...</p>
         </div>
       </div>
@@ -38,7 +38,7 @@ function LibraryDetailsUI({ data, loading, error, onRetry }) {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen pt-20 flex items-center justify-center">
         <div className="text-center max-w-md">
           <div className="bg-red-50 border border-red-200 rounded-lg p-6">
             <h3 className="text-red-800 font-semibold mb-2">Error</h3>
@@ -57,13 +57,13 @@ function LibraryDetailsUI({ data, loading, error, onRetry }) {
 
   if (!data) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen pt-20 flex items-center justify-center">
         <div className="text-center">
           <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
             <p className="text-gray-600">Library not found.</p>
             <Link
               to="/libraries"
-              className="inline-block mt-4 px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors"
+              className="inline-block mt-4 px-4 py-2 bg-[#b8860b] text-white rounded hover:bg-[#d4a017] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
             >
               Back to Libraries
             </Link>
@@ -74,7 +74,7 @@ function LibraryDetailsUI({ data, loading, error, onRetry }) {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-20">
       {/* Header */}
       <div className="bg-primary-900 text-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -153,7 +153,7 @@ function LibraryDetailsUI({ data, loading, error, onRetry }) {
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition p-4">
                 <button
                   onClick={() => navigate(`/submit/${data._id}`)}
-                  className="w-full bg-blue-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-blue-700 transition"
+                  className="w-full bg-[#b8860b] text-white py-3 px-4 rounded-xl font-medium hover:bg-[#d4a017] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
                 >
                   <span className="text-white">Submit Document</span>
                 </button>

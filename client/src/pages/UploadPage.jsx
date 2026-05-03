@@ -80,7 +80,7 @@ function UploadPage() {
   };
 
   return (
-    <section className="py-12">
+    <section className="pt-20 py-12">
       <div className="max-w-2xl mx-auto px-4">
         <h1 className="text-2xl font-semibold mb-6">Submit Document</h1>
         <p className="text-gray-600 mb-4">Submit your document to the digital archive</p>
@@ -114,7 +114,7 @@ function UploadPage() {
               value={formData.title}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#b8860b]"
             />
           </div>
 
@@ -129,7 +129,7 @@ function UploadPage() {
               onChange={handleChange}
               required
               rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#b8860b]"
             />
           </div>
 
@@ -142,7 +142,7 @@ function UploadPage() {
               name="type"
               value={formData.type}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#b8860b]"
             >
               <option value="photo">Photograph</option>
               <option value="document">Document</option>
@@ -161,7 +161,7 @@ function UploadPage() {
               value={formData.tags}
               onChange={handleChange}
               placeholder="Separate tags with commas"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#b8860b]"
             />
           </div>
 
@@ -175,7 +175,7 @@ function UploadPage() {
               name="file"
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#b8860b]"
             />
           </div>
 
@@ -183,7 +183,7 @@ function UploadPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+              className="w-full bg-[#b8860b] text-white py-2 px-4 rounded-md hover:bg-[#d4a017] focus:outline-none focus:ring-2 focus:ring-[#b8860b] disabled:opacity-50 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
             >
               {loading ? 'Uploading...' : 'Upload Document'}
             </button>

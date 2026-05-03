@@ -273,7 +273,7 @@ function CreateLibraryForm() {
             <button
               type="submit"
               disabled={submitting}
-              className="px-5 py-2 bg-gray-800 text-white text-sm rounded hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+              className="px-5 py-2 bg-[#b8860b] text-white text-sm rounded hover:bg-[#d4a017] disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
             >
               {submitting ? "Creating…" : "Create Library"}
             </button>
@@ -506,7 +506,7 @@ function AdminPage() {
   // ── Loading state ──────────────────────────────────────────────────────────
   if (loading) {
     return (
-      <div className="p-8 text-center text-gray-500">
+      <div className="pt-20 p-8 text-center text-gray-500">
         <p className="text-base">Loading submissions…</p>
         <p className="text-sm mt-1">Please wait.</p>
       </div>
@@ -516,7 +516,7 @@ function AdminPage() {
   // ── Error state ────────────────────────────────────────────────────────────
   if (error) {
     return (
-      <div className="p-8 max-w-md mx-auto text-center">
+      <div className="pt-20 p-8 max-w-md mx-auto text-center">
         <div className="border border-red-200 bg-red-50 rounded-lg p-6">
           <p className="text-red-700 font-medium mb-1">⚠ Error</p>
           <p className="text-red-600 text-sm mb-4">{error}</p>
@@ -533,7 +533,7 @@ function AdminPage() {
 
   // ── Main render ────────────────────────────────────────────────────────────
   return (
-    <section className="py-12">
+    <section className="pt-20 py-12">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-2xl font-semibold mb-6">Admin Panel</h1>
         <p className="text-gray-600 mb-6">

@@ -30,7 +30,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6 pt-20">
       <div className="w-full max-w-sm">
         <h1 className="text-2xl font-bold mb-1">Sign In</h1>
         <p className="text-gray-500 text-sm mb-6">Access your contributor account.</p>
@@ -75,7 +75,7 @@ function LoginPage() {
             </div>
           </div>
           <button type="submit" disabled={loading}
-            className="w-full bg-gray-800 text-white py-2 rounded text-sm hover:bg-gray-700 disabled:opacity-50">
+            className="w-full bg-[#b8860b] text-white py-2 rounded text-sm hover:bg-[#d4a017] disabled:opacity-50 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
             {loading ? "Signing in…" : "Sign In"}
           </button>
         </form>
