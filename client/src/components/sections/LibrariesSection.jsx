@@ -44,7 +44,8 @@ function LibrariesSection() {
       description: "Major public library with extensive archives",
       location: "Delhi",
       items: "2M+ books",
-      established: "1951"
+      established: "1951",
+      imageUrl: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&q=80"
     },
     {
       _id: "fallback-2",
@@ -52,7 +53,8 @@ function LibrariesSection() {
       description: "Preservation of historical documents and records",
       location: "New Delhi",
       items: "10M+ records",
-      established: "1891"
+      established: "1891",
+      imageUrl: "https://images.unsplash.com/photo-1568667256549-094345857637?w=800&q=80"
     },
     {
       _id: "fallback-3",
@@ -60,7 +62,8 @@ function LibrariesSection() {
       description: "Academic library with research collections",
       location: "Delhi University",
       items: "1.5M+ books",
-      established: "1922"
+      established: "1922",
+      imageUrl: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=800&q=80"
     }
   ];
 
