@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
@@ -15,9 +16,12 @@ function Navbar() {
       if (window.scrollY > 10) {
         setIsOpen(false);
       }
+      setVisible(window.scrollY > window.innerHeight * 0.6);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -32,7 +36,15 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav
+      className="bg-white shadow-lg fixed top-0 left-0 right-0 z-50"
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'opacity 450ms ease, transform 450ms ease',
+        willChange: 'transform, opacity',
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
