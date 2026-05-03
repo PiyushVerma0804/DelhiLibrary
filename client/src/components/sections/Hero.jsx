@@ -21,7 +21,7 @@ function Hero() {
       <div className="relative z-10 max-w-3xl mx-auto px-4 flex flex-col items-center gap-6">
         {/* Title */}
         <h1 className="font-display text-white font-light leading-tight text-4xl sm:text-5xl lg:text-6xl">
-          Explore The Best<br />
+          Explore the Best<br />
           <em className="text-white not-italic">Libraries in Delhi</em>
         </h1>
 
