@@ -1,14 +1,24 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DocumentList from './DocumentList';
 import { deleteLibrary } from '../../services/api-base.js';
+import { DetailSkeleton } from '../skeleton/SkeletonComponents';
 
 function LibraryDetailsUI({ data, loading, error, onRetry }) {
   const navigate = useNavigate();
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState(null);
+  const [showContent, setShowContent] = useState(false);
   const role = localStorage.getItem("role");
   const isAdmin = role === "admin";
+
+  useEffect(() => {
+    if (!loading && data) {
+      setTimeout(() => setShowContent(true), 300);
+    } else {
+      setShowContent(false);
+    }
+  }, [loading, data]);
 
   const handleDelete = async () => {
     const confirmed = window.confirm("Are you sure you want to delete this library? This action cannot be undone.");
@@ -26,14 +36,7 @@ function LibraryDetailsUI({ data, loading, error, onRetry }) {
     }
   };
   if (loading) {
-    return (
-      <div className="min-h-screen pt-20 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b8860b] mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading library details...</p>
-        </div>
-      </div>
-    );
+    return <DetailSkeleton />;
   }
 
   if (error) {
@@ -74,7 +77,7 @@ function LibraryDetailsUI({ data, loading, error, onRetry }) {
   }
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className={`min-h-screen pt-20 transition-opacity duration-300 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
       {/* Header */}
       <div className="bg-primary-900 text-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

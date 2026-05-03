@@ -1,16 +1,19 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { libraryService } from '../../services/libraryService';
+import { CardSkeleton } from '../skeleton/SkeletonComponents';
 
 function LibrariesSection() {
   const [libraries, setLibraries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchLibraries = async () => {
       try {
         setLoading(true);
+        setShowContent(false);
         setError(null);
 
         const res = await libraryService.getAllLibraries();
@@ -25,10 +28,15 @@ function LibrariesSection() {
 
         setLibraries(librariesData);
         
+        // Minimum 300ms display time to prevent flicker
+        setTimeout(() => {
+          setLoading(false);
+          setShowContent(true);
+        }, 300);
+        
       } catch (err) {
         console.error('Error fetching libraries:', err);
         setError('Failed to load libraries. Please try again later.');
-      } finally {
         setLoading(false);
       }
     };
@@ -85,11 +93,17 @@ function LibrariesSection() {
 
         {/* States */}
         {loading ? (
-          <p className="text-center">Loading...</p>
+          <div className="grid md:grid-cols-2 gap-8">
+            {[1, 2, 3, 4].map((i) => (
+              <CardSkeleton key={i} />
+            ))}
+          </div>
         ) : error ? (
           <p className="text-center text-red-500">{error}</p>
         ) : (
-          <div className="grid md:grid-cols-2 gap-8">
+          <div 
+            className={`grid md:grid-cols-2 gap-8 transition-opacity duration-300 ${showContent ? 'opacity-100' : 'opacity-0'}`}
+          >
             {displayLibraries.map((library) => {
               // Use proper ID from backend
               const libraryId = library._id || library.id;

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { adminService } from '../services/adminService.js';
 import { libraryService } from '../services/libraryService.js';
 import { getTypeLabel, normalizeTags, TYPE_LABELS } from "../utils/dataHelpers";
+import { ListSkeleton } from "../components/skeleton/SkeletonComponents";
 
 const TYPE_BADGE_STYLES = {
   photo: "bg-blue-100 text-blue-700",
@@ -477,22 +478,28 @@ function SubmissionCard({ sub, onAction }) {
 function AdminPage() {
   const [submissions, setSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
   const [error, setError] = useState(null);
 
   
   const fetchSubmissions = useCallback(() => {
     setLoading(true);
+    setShowContent(false);
     setError(null);
     adminService.getAllSubmissions()
       .then((res) => {
         const raw = res.data;
         const submissionsData = raw?.submissions || raw?.data?.submissions || raw || [];
         setSubmissions(submissionsData);
+        setTimeout(() => {
+          setLoading(false);
+          setShowContent(true);
+        }, 300);
       })
       .catch(() => {
         setError("Something went wrong. Please try again.");
-      })
-      .finally(() => setLoading(false));
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -506,10 +513,27 @@ function AdminPage() {
   // ── Loading state ──────────────────────────────────────────────────────────
   if (loading) {
     return (
-      <div className="pt-20 p-8 text-center text-gray-500">
-        <p className="text-base">Loading submissions…</p>
-        <p className="text-sm mt-1">Please wait.</p>
-      </div>
+      <section className="pt-20 py-12">
+        <div className="max-w-4xl mx-auto px-4">
+          <h1 className="text-2xl font-semibold mb-6">Admin Panel</h1>
+          <p className="text-gray-600 mb-6">
+            Review each submission carefully before approving or rejecting.
+          </p>
+          <div className="mb-6">
+            <div className="border border-gray-200 rounded-lg bg-white overflow-hidden p-4">
+              <div className="flex items-center justify-between mb-4">
+                <div className="h-6 bg-gray-200 rounded animate-pulse w-1/3" />
+                <div className="h-6 bg-gray-200 rounded animate-pulse w-16" />
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <ListSkeleton key={i} />
+            ))}
+          </div>
+        </div>
+      </section>
     );
   }
 
@@ -533,7 +557,7 @@ function AdminPage() {
 
   // ── Main render ────────────────────────────────────────────────────────────
   return (
-    <section className="pt-20 py-12">
+    <section className={`pt-20 py-12 transition-opacity duration-300 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-2xl font-semibold mb-6">Admin Panel</h1>
         <p className="text-gray-600 mb-6">

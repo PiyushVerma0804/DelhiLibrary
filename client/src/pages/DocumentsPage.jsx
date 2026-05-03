@@ -4,6 +4,7 @@ import { libraryService } from "../services/libraryService.js";
 import { deleteDocument } from "../services/api-base.js";
 import { getTypeLabel, normalizeTags, TYPE_LABELS } from "../utils/dataHelpers";
 import { useDebounce } from "../hooks/useDebounce";
+import { CardSkeleton } from "../components/skeleton/SkeletonComponents";
 
 const TYPE_OPTIONS = [
   { value: "", label: "All Types" },
@@ -38,12 +39,9 @@ function DocumentsPage() {
   const [documents, setDocuments] = useState([]);
   const [libraries, setLibraries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
   const [error, setError] = useState(null);
-  const [filters, setFilters] = useState({
-    search: "",
-    type: "",
-    libraryId: "",
-  });
+  const [filters, setFilters] = useState({ search: "", type: "", libraryId: "" });
   const [deletingId, setDeletingId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -94,6 +92,7 @@ function DocumentsPage() {
 
   const fetchData = useCallback(() => {
     setLoading(true);
+    setShowContent(false);
     setError(null);
     
     const queryParams = new URLSearchParams();
@@ -106,9 +105,15 @@ function DocumentsPage() {
         const raw = res.data;
         const documentsData = raw?.documents || raw?.data?.documents || raw || [];
         setDocuments(documentsData);
+        setTimeout(() => {
+          setLoading(false);
+          setShowContent(true);
+        }, 300);
       })
-      .catch(() => setError("Failed to load documents. Please try again."))
-      .finally(() => setLoading(false));
+      .catch(() => {
+        setError("Failed to load documents. Please try again.");
+        setLoading(false);
+      });
   }, [debouncedSearch, filters.type, filters.libraryId]);
 
   const fetchLibraries = useCallback(() => {
@@ -139,9 +144,23 @@ function DocumentsPage() {
 
   if (loading) {
     return (
-      <div className="pt-20 p-8 text-center text-gray-500">
-        <p>Loading documents…</p>
-      </div>
+      <section className="pt-20 py-12">
+        <div className="max-w-6xl mx-auto px-4">
+          <h1 className="text-2xl font-semibold mb-6">Documents</h1>
+          <div className="mb-6 p-4 bg-white rounded-xl shadow-sm border border-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="h-10 bg-gray-200 rounded animate-pulse" />
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <CardSkeleton key={i} />
+            ))}
+          </div>
+        </div>
+      </section>
     );
   }
 
@@ -165,7 +184,9 @@ function DocumentsPage() {
   const hasActiveFilters = filters.search || filters.type || filters.libraryId;
 
   return (
-    <section className="pt-20 py-12">
+    <section 
+      className={`pt-20 py-12 transition-opacity duration-300 ${showContent ? 'opacity-100' : 'opacity-0'}`}
+    >
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-2xl font-semibold mb-6">Documents</h1>
 
