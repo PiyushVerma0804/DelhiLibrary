@@ -8,8 +8,6 @@ const getAllSubmissions = async (req, res) => {
       .populate('contributorId', 'name email')
       .sort({ createdAt: -1 });
 
-    console.log("ADMIN FETCH RESULT:", submissions);
-
     res.json({
       success: true,
       data: { submissions }
